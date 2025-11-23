@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { ViewState } from '../types';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+import { ViewState } from "../types";
+import { Sun, Moon, Menu, X } from "lucide-react";
 
 interface HeaderProps {
   currentView: ViewState;
@@ -15,16 +15,21 @@ const slideDown = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
-const HeaderContainer = styled.header<{ $scrolled: boolean; $menuOpen: boolean }>`
+const HeaderContainer = styled.header<{
+  $scrolled: boolean;
+  $menuOpen: boolean;
+}>`
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 50;
   transition: all 0.3s ease;
-  background-color: ${({ $scrolled, $menuOpen, theme }) => 
-    $scrolled || $menuOpen ? theme.colors.background : 'transparent'};
-  
-  ${({ $scrolled, $menuOpen, theme }) => ($scrolled || $menuOpen) && `
+  background-color: ${({ $scrolled, $menuOpen, theme }) =>
+    $scrolled || $menuOpen ? theme.colors.background : "transparent"};
+
+  ${({ $scrolled, $menuOpen, theme }) =>
+    ($scrolled || $menuOpen) &&
+    `
     border-bottom: 1px solid ${theme.colors.border};
     backdrop-filter: blur(8px);
     background-color: ${theme.colors.background}E6; /* Hex with opacity */
@@ -68,7 +73,8 @@ const DesktopNav = styled.nav`
 const NavLink = styled.button<{ $active?: boolean }>`
   font-size: 0.875rem;
   font-weight: 500;
-  color: ${({ $active, theme }) => $active ? theme.colors.text : theme.colors.textSecondary};
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.text : theme.colors.textSecondary};
   transition: color 0.2s;
 
   &:hover {
@@ -121,7 +127,8 @@ const MobileNavLink = styled.button<{ $active?: boolean }>`
   text-align: left;
   font-size: 1.125rem;
   font-weight: 500;
-  color: ${({ $active, theme }) => $active ? theme.colors.text : theme.colors.textSecondary};
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.text : theme.colors.textSecondary};
   padding: 0.5rem 0;
 
   &:hover {
@@ -129,7 +136,12 @@ const MobileNavLink = styled.button<{ $active?: boolean }>`
   }
 `;
 
-const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, darkMode, toggleTheme }) => {
+const Header: React.FC<HeaderProps> = ({
+  currentView,
+  onNavigate,
+  darkMode,
+  toggleTheme,
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -137,97 +149,89 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, darkMode, togg
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleScrollToSection = (sectionId: string) => {
-     setMobileMenuOpen(false);
-     if (currentView !== 'home') {
-         onNavigate('home');
-         setTimeout(() => {
-             const el = document.getElementById(sectionId);
-             if (el) el.scrollIntoView({ behavior: 'smooth' });
-         }, 100);
-     } else {
-         const el = document.getElementById(sectionId);
-         if (el) el.scrollIntoView({ behavior: 'smooth' });
-     }
+    setMobileMenuOpen(false);
+    if (currentView !== "home") {
+      onNavigate("home");
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleNavClick = (view: ViewState) => {
-      setMobileMenuOpen(false);
-      onNavigate(view);
+    setMobileMenuOpen(false);
+    onNavigate(view);
   };
 
   return (
     <HeaderContainer $scrolled={scrolled} $menuOpen={mobileMenuOpen}>
       <HeaderContent>
-        <Logo onClick={() => handleNavClick('home')}>S.</Logo>
+        <Logo onClick={() => handleNavClick("home")}>S.</Logo>
 
         <NavGroup>
-            <DesktopNav>
-                <NavLink 
-                    $active={currentView === 'home'} 
-                    onClick={() => onNavigate('home')}
-                >
-                    Home
-                </NavLink>
-                <NavLink 
-                    onClick={() => handleScrollToSection('experience')}
-                >
-                    Experience
-                </NavLink>
-                <NavLink 
-                    onClick={() => handleScrollToSection('activity')}
-                >
-                    Activity
-                </NavLink>
-                <NavLink 
-                    $active={currentView.startsWith('blog')} 
-                    onClick={() => onNavigate('blogs')}
-                >
-                    Blogs
-                </NavLink>
-            </DesktopNav>
-
-            <IconButton onClick={toggleTheme} aria-label="Toggle Dark Mode">
-                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </IconButton>
-
-            <MobileMenuButton 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Toggle Menu"
+          <DesktopNav>
+            <NavLink
+              $active={currentView === "home"}
+              onClick={() => onNavigate("home")}
             >
-               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </MobileMenuButton>
+              Home
+            </NavLink>
+            <NavLink onClick={() => handleScrollToSection("experience")}>
+              Experience
+            </NavLink>
+            <NavLink onClick={() => handleScrollToSection("activity")}>
+              Activity
+            </NavLink>
+            <NavLink
+              $active={currentView.startsWith("blog")}
+              onClick={() => onNavigate("blogs")}
+            >
+              Blogs
+            </NavLink>
+          </DesktopNav>
+
+          <IconButton onClick={toggleTheme} aria-label="Toggle Dark Mode">
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </IconButton>
+
+          <MobileMenuButton
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </MobileMenuButton>
         </NavGroup>
       </HeaderContent>
 
       {mobileMenuOpen && (
         <MobileMenuOverlay>
-             <MobileNavLink 
-                $active={currentView === 'home'}
-                onClick={() => handleNavClick('home')}
-            >
-                Home
-            </MobileNavLink>
-            <MobileNavLink 
-                onClick={() => handleScrollToSection('experience')}
-            >
-                Experience
-            </MobileNavLink>
-            <MobileNavLink 
-                onClick={() => handleScrollToSection('activity')}
-            >
-                Activity
-            </MobileNavLink>
-            <MobileNavLink 
-                $active={currentView.startsWith('blog')}
-                onClick={() => handleNavClick('blogs')}
-            >
-                Blogs
-            </MobileNavLink>
+          <MobileNavLink
+            $active={currentView === "home"}
+            onClick={() => handleNavClick("home")}
+          >
+            Home
+          </MobileNavLink>
+          <MobileNavLink onClick={() => handleScrollToSection("experience")}>
+            Experience
+          </MobileNavLink>
+          <MobileNavLink onClick={() => handleScrollToSection("activity")}>
+            Activity
+          </MobileNavLink>
+          <MobileNavLink
+            $active={currentView.startsWith("blog")}
+            onClick={() => handleNavClick("blogs")}
+          >
+            Blogs
+          </MobileNavLink>
         </MobileMenuOverlay>
       )}
     </HeaderContainer>

@@ -7,7 +7,8 @@ export const PROFILE = {
   avatar: "https://github.com/sounak07.png",
   location: "Bengalurur, India",
   email: "sounakume@gmail.com",
-  resumeUrl: "/resume.pdf",
+  resumeUrl:
+    "https://drive.google.com/file/d/1c03obFT7xnBEchVWsg5-4665kfU6RduT/view?usp=sharing",
 };
 
 export const GITHUB_CONFIG = {

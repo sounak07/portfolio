@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { PROFILE, SOCIAL_LINKS } from '../constants';
-import { Github, Linkedin, Twitter, Instagram, Layers, FileText, Coffee, Mail } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from "react";
+import styled, { keyframes, css } from "styled-components";
+import { PROFILE, SOCIAL_LINKS } from "../constants";
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Layers,
+  FileText,
+  Coffee,
+  Mail,
+} from "lucide-react";
 
 const IconMap: Record<string, React.ComponentType<any>> = {
   github: Github,
@@ -10,7 +19,7 @@ const IconMap: Record<string, React.ComponentType<any>> = {
   instagram: Instagram,
   stackoverflow: Layers,
   topmate: Coffee,
-  mail: Mail
+  mail: Mail,
 };
 
 // Animations
@@ -85,7 +94,11 @@ const ImageContainer = styled.div`
   height: 8rem;
   border-radius: 9999px;
   padding: 0.25rem;
-  background: linear-gradient(to bottom right, ${({ theme }) => theme.colors.border}, ${({ theme }) => theme.colors.background});
+  background: linear-gradient(
+    to bottom right,
+    ${({ theme }) => theme.colors.border},
+    ${({ theme }) => theme.colors.background}
+  );
   box-shadow: ${({ theme }) => theme.shadows.lg};
   border: 1px solid ${({ theme }) => theme.colors.border};
 
@@ -136,9 +149,10 @@ const GradientText = styled.span`
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, 
-    ${({ theme }) => theme.colors.text}, 
-    ${({ theme }) => theme.colors.textSecondary}, 
+  background-image: linear-gradient(
+    to right,
+    ${({ theme }) => theme.colors.text},
+    ${({ theme }) => theme.colors.textSecondary},
     ${({ theme }) => theme.colors.textMuted}
   );
 `;
@@ -146,7 +160,7 @@ const GradientText = styled.span`
 const BlinkingCursor = styled.span<{ $height: string }>`
   display: inline-block;
   width: 4px;
-  height: ${props => props.$height};
+  height: ${(props) => props.$height};
   background-color: ${({ theme }) => theme.colors.text};
   margin-left: 0.25rem;
   vertical-align: middle;
@@ -214,7 +228,9 @@ const ResumeButton = styled.a`
   box-shadow: ${({ theme }) => theme.shadows.md};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.textSecondary}; /* Slightly lighter than primary for hover effect fallback */
+    background-color: ${({ theme }) =>
+      theme.colors
+        .textSecondary}; /* Slightly lighter than primary for hover effect fallback */
     transform: translateY(-4px);
     box-shadow: ${({ theme }) => theme.shadows.lg};
     color: ${({ theme }) => theme.colors.primaryInverse};
@@ -222,9 +238,17 @@ const ResumeButton = styled.a`
 `;
 
 const Hero: React.FC = () => {
-  const [typedName, setTypedName] = useState('');
-  const [typedTitle, setTypedTitle] = useState('');
-  
+  const [typedNameIndex, setTypedNameIndex] = useState(0);
+  const [typedTitleIndex, setTypedTitleIndex] = useState(0);
+  const typedName = useMemo(
+    () => PROFILE.name.slice(0, typedNameIndex),
+    [typedNameIndex]
+  );
+  const typedTitle = useMemo(
+    () => PROFILE.title.slice(0, typedTitleIndex),
+    [typedTitleIndex]
+  );
+
   // Typing effect logic
   useEffect(() => {
     const nameText = PROFILE.name;
@@ -234,21 +258,19 @@ const Hero: React.FC = () => {
     let typingTimeout: any;
 
     const typeName = () => {
-      if (nameIndex < nameText.length) {
-        setTypedName(prev => prev + nameText.charAt(nameIndex));
-        nameIndex++;
-        typingTimeout = setTimeout(typeName, 100); 
+      if (nameIndex <= nameText.length) {
+        setTypedNameIndex(nameIndex++);
+        typingTimeout = setTimeout(typeName, 100);
       } else {
         typingTimeout = setTimeout(typeTitle, 400);
       }
     };
 
     const typeTitle = () => {
-       if (titleIndex < titleText.length) {
-          setTypedTitle(prev => prev + titleText.charAt(titleIndex));
-          titleIndex++;
-          typingTimeout = setTimeout(typeTitle, 50);
-       }
+      if (titleIndex <= titleText.length) {
+        setTypedTitleIndex(titleIndex++);
+        typingTimeout = setTimeout(typeTitle, 50);
+      }
     };
 
     typingTimeout = setTimeout(typeName, 500);
@@ -259,14 +281,12 @@ const Hero: React.FC = () => {
   return (
     <Section>
       <Layout>
-        {/* Profile Image */}
         <ProfileImageWrapper>
           <ImageContainer>
             <img src={PROFILE.avatar} alt={PROFILE.name} />
           </ImageContainer>
         </ProfileImageWrapper>
 
-        {/* Text Content */}
         <ContentWrapper>
           <TextBlock>
             <NameHeading>
@@ -275,7 +295,10 @@ const Hero: React.FC = () => {
             </NameHeading>
             <TitleHeading>
               {typedTitle}
-              {typedTitle.length > 0 && typedTitle.length < PROFILE.title.length && <BlinkingCursor $height="1.2em" />}
+              {typedTitle.length > 0 &&
+                typedTitle.length < PROFILE.title.length && (
+                  <BlinkingCursor $height="1.2em" />
+                )}
             </TitleHeading>
             <Bio>{PROFILE.bio}</Bio>
           </TextBlock>
@@ -298,7 +321,7 @@ const Hero: React.FC = () => {
           </SocialLinksContainer>
 
           <ResumeButtonContainer>
-            <ResumeButton 
+            <ResumeButton
               href={PROFILE.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
