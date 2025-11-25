@@ -255,7 +255,7 @@ const GithubActivity: React.FC = () => {
           </GraphContainer>
         </div>
 
-        <SubHeading>Repos I'm active on</SubHeading>
+        <SubHeading>Active Repos</SubHeading>
 
         {loading ? (
           <LoadingWrapper>
