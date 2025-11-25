@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { GITHUB_CONFIG } from '../constants';
-import { GitCommit, Star, GitFork, Circle, ExternalLink, Loader2 } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { GITHUB_CONFIG } from "../constants";
+import {
+  GitCommit,
+  Star,
+  GitFork,
+  Circle,
+  ExternalLink,
+  Loader2,
+} from "lucide-react";
 
 interface Repo {
   id: number;
@@ -17,7 +24,8 @@ interface Repo {
 const Section = styled.section`
   padding: 4rem 0;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
-  background-color: ${({ theme }) => theme.colors.backgroundAlt}80; /* 50% opacity */
+  background-color: ${({ theme }) =>
+    theme.colors.backgroundAlt}80; /* 50% opacity */
 `;
 
 const Container = styled.div`
@@ -57,7 +65,6 @@ const SubHeading = styled.h4`
   font-size: 0.875rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.textSecondary};
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 1.5rem;
 `;
@@ -85,9 +92,12 @@ const GraphImage = styled.img`
   .dark & {
     filter: invert(1) hue-rotate(180deg) brightness(1.1);
   }
-  
+
   /* Manual check since styled-components theme prop is better */
-  filter: ${({ theme }) => theme.colors.background === '#030712' ? 'invert(1) hue-rotate(180deg) brightness(1.1)' : 'none'};
+  filter: ${({ theme }) =>
+    theme.colors.background === "#151B23"
+      ? "invert(1) hue-rotate(180deg) brightness(1.1)"
+      : "none"};
 `;
 
 const RepoGrid = styled.div`
@@ -197,15 +207,15 @@ const GithubActivity: React.FC = () => {
         const response = await fetch(
           `https://api.github.com/users/${GITHUB_CONFIG.username}/repos?sort=pushed&direction=desc&per_page=6`
         );
-        
+
         if (!response.ok) {
-          throw new Error('Failed to fetch repositories');
+          throw new Error("Failed to fetch repositories");
         }
 
         const data = await response.json();
         setRepos(data);
       } catch (err) {
-        setError('Could not load GitHub data');
+        setError("Could not load GitHub data");
         console.error(err);
       } finally {
         setLoading(false);
@@ -216,10 +226,10 @@ const GithubActivity: React.FC = () => {
   }, []);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
@@ -227,46 +237,48 @@ const GithubActivity: React.FC = () => {
     <Section id="activity">
       <Container>
         <Header>
-           <IconWrapper>
-             <GitCommit size={24} />
-           </IconWrapper>
-           <Title>Open Source Activity</Title>
+          <IconWrapper>
+            <GitCommit size={24} />
+          </IconWrapper>
+          <Title>Open Source Activity</Title>
         </Header>
 
-        {/* Contribution Graph */}
-        <div style={{ marginBottom: '3rem' }}>
-            <SubHeading>Contribution History</SubHeading>
-            <GraphContainer>
-              <GraphCard>
-                  <GraphImage 
-                      src={`https://ghchart.rshah.org/4b5563/${GITHUB_CONFIG.username}`} 
-                      alt={`${GITHUB_CONFIG.username}'s Github Chart`} 
-                  />
-              </GraphCard>
-            </GraphContainer>
+        <div style={{ marginBottom: "3rem" }}>
+          <SubHeading>Contribution History</SubHeading>
+          <GraphContainer>
+            <GraphCard>
+              <GraphImage
+                src={`https://ghchart.rshah.org/196C2E/${GITHUB_CONFIG.username}`}
+                alt={`${GITHUB_CONFIG.username}'s Github Chart`}
+              />
+            </GraphCard>
+          </GraphContainer>
         </div>
-        
-        {/* Recent Repos Grid */}
-        <SubHeading>Active Repos</SubHeading>
-        
+
+        <SubHeading>Repos I'm active on</SubHeading>
+
         {loading ? (
           <LoadingWrapper>
             <Loader2 className="animate-spin" color="#9ca3af" size={32} />
           </LoadingWrapper>
         ) : error ? (
-           <ErrorMsg>{error}</ErrorMsg>
+          <ErrorMsg>{error}</ErrorMsg>
         ) : (
           <RepoGrid>
             {repos.map((repo) => (
-              <RepoCard 
-                key={repo.id} 
+              <RepoCard
+                key={repo.id}
                 href={repo.html_url}
-                target="_blank" 
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 <RepoHeader>
                   <RepoName>{repo.name}</RepoName>
-                  <ExternalLink size={16} color="currentColor" style={{ flexShrink: 0 }} />
+                  <ExternalLink
+                    size={16}
+                    color="currentColor"
+                    style={{ flexShrink: 0 }}
+                  />
                 </RepoHeader>
 
                 <RepoDesc>
@@ -274,23 +286,23 @@ const GithubActivity: React.FC = () => {
                 </RepoDesc>
 
                 <RepoFooter>
-                    <StatsGroup>
-                        {repo.language && (
-                            <StatItem>
-                                <Circle size={8} fill="currentColor" />
-                                <span>{repo.language}</span>
-                            </StatItem>
-                        )}
-                        <StatItem>
-                            <Star size={12} />
-                            <span>{repo.stargazers_count}</span>
-                        </StatItem>
-                         <StatItem>
-                            <GitFork size={12} />
-                            <span>{repo.forks_count}</span>
-                        </StatItem>
-                    </StatsGroup>
-                    <span>{formatDate(repo.pushed_at)}</span>
+                  <StatsGroup>
+                    {repo.language && (
+                      <StatItem>
+                        <Circle size={8} fill="currentColor" />
+                        <span>{repo.language}</span>
+                      </StatItem>
+                    )}
+                    <StatItem>
+                      <Star size={12} />
+                      <span>{repo.stargazers_count}</span>
+                    </StatItem>
+                    <StatItem>
+                      <GitFork size={12} />
+                      <span>{repo.forks_count}</span>
+                    </StatItem>
+                  </StatsGroup>
+                  <span>{formatDate(repo.pushed_at)}</span>
                 </RepoFooter>
               </RepoCard>
             ))}

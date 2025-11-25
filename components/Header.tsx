@@ -175,7 +175,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <HeaderContainer $scrolled={scrolled} $menuOpen={mobileMenuOpen}>
       <HeaderContent>
-        <Logo onClick={() => handleNavClick("home")}>S.</Logo>
+        <Logo onClick={() => handleNavClick("home")}>🇮🇳</Logo>
 
         <NavGroup>
           <DesktopNav>

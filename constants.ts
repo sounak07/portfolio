@@ -3,7 +3,7 @@ import { SocialLink, ExperienceItem, BlogPost } from "./types";
 export const PROFILE = {
   name: "Sounak",
   title: "Senior Software Engineer",
-  bio: "This is place holder",
+  bio: "Hi I’m Sounak, I have a passion for backend distributed systems, love to work at customer facing products. I have deep expertise in data structures, algorithms, OOP, and design patterns—and I really love building teams, taking an orgs engineering culture and unleveling them.",
   avatar: "https://github.com/sounak07.png",
   location: "Bengalurur, India",
   email: "sounakume@gmail.com",
@@ -20,15 +20,23 @@ export const GITHUB_CONFIG = {
 
 export const SOCIAL_LINKS: SocialLink[] = [
   { name: "GitHub", url: "https://github.com/sounak07", icon: "github" },
-  { name: "LinkedIn", url: "https://linkedin.com", icon: "linkedin" },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/sounak08",
+    icon: "linkedin",
+  },
   {
     name: "StackOverflow",
-    url: "https://stackoverflow.com",
+    url: "https://stackoverflow.com/users/7905119/sounak07",
     icon: "stackoverflow",
   },
-  { name: "Twitter", url: "https://twitter.com", icon: "twitter" },
-  { name: "Instagram", url: "https://instagram.com", icon: "instagram" },
-  { name: "Topmate", url: "https://topmate.io", icon: "topmate" },
+  { name: "X", url: "https://x.com/sounak_08", icon: "twitter" },
+  {
+    name: "Instagram",
+    url: "https://instagram.com/_reactivist_",
+    icon: "instagram",
+  },
+  { name: "Topmate", url: "https://topmate.io/sounak_fyi", icon: "topmate" },
 ];
 
 export const EXPERIENCES: ExperienceItem[] = [
