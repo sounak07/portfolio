@@ -107,8 +107,26 @@ const Role = styled.h4`
 `;
 
 const Company = styled.span`
-  font-weight: 500;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.textSecondary};
+  position: relative;
+  cursor: default;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.25s ease;
+    border-radius: 2px;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
 `;
 
 const DescriptionList = styled.ul`
