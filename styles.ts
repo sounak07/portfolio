@@ -19,7 +19,7 @@ export const lightTheme = {
     background: neutral[50],
     backgroundAlt: neutral[100],
     text: neutral[900],
-    textSecondary: neutral[500],
+    textSecondary: neutral[600],
     textMuted: neutral[400],
     border: neutral[200],
     primary: neutral[900],

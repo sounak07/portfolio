@@ -1,15 +1,22 @@
 export interface SocialLink {
   name: string;
   url: string;
-  icon: 'github' | 'linkedin' | 'twitter' | 'instagram' | 'stackoverflow' | 'topmate' | 'mail';
+  icon:
+    | "github"
+    | "linkedin"
+    | "twitter"
+    | "instagram"
+    | "stackoverflow"
+    | "topmate"
+    | "mail";
 }
 
 export interface ExperienceItem {
   id: string;
-  role: string;
+  roles: string[];
   company: string;
   period: string;
-  description: string[];
+  description: Array<Array<string>>;
   skills: string[];
 }
 
@@ -32,4 +39,4 @@ export interface BlogPost {
   content?: string; // Loaded asynchronously
 }
 
-export type ViewState = 'home' | 'blogs' | 'blog-detail';
+export type ViewState = "home" | "blogs" | "blog-detail";

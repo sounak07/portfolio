@@ -42,27 +42,59 @@ export const SOCIAL_LINKS: SocialLink[] = [
 export const EXPERIENCES: ExperienceItem[] = [
   {
     id: "1",
-    role: "Senior Frontend Engineer",
-    company: "TechNova Inc.",
-    period: "2021 - Present",
+    roles: ["Senior Software Engineer I", "Software Engineer II"],
+    company: "Raft",
+    period: "Jul 2022 - Nov 2025",
     description: [
-      "Led the migration of a legacy monolith to a micro-frontend architecture, improving deployment speed by 40%.",
-      "Architected a cross-platform design system used by 5+ product teams.",
-      "Mentored junior developers and established code quality standards.",
+      ["Working in Gen3, Finance Improvements"],
+      [
+        "Designed and developed the Cargowise Ref Service from scratch, implementing an EAV pattern, async workflows with celery.",
+        "Spearheaded Statements Integration, enhancing customer visibility and reducing payment delays by 30%.",
+        "Established test automation, code standards, CI/CD pipelines, Helm charts, and telemetry with Datadog and Sentry enhancing observability.",
+      ],
     ],
-    skills: ["React", "TypeScript", "Next.js", "GraphQL"],
+    skills: ["React", "TypeScript", "Python", "k8s", "GCP", "PostgresQL"],
   },
   {
     id: "2",
-    role: "Frontend Developer",
-    company: "Creativ Studio",
-    period: "2018 - 2021",
+    roles: ["Software Engineer", "Software Engineer Intern"],
+    company: "Hyperverge",
+    period: "Jan 2021 – Jul 2022",
     description: [
-      "Developed high-fidelity interactive dashboards for fintech clients.",
-      "Optimized application bundle size, reducing initial load time by 2.5s.",
-      "Implemented extensive unit and integration testing suites.",
+      [
+        "Designed and developed Sim-SaaS, a CPU based vector similarity search service from scratch using FastApi.",
+        "Assisted in development and scaling of FRaaS, a face digitization and face recognition service.",
+        "Revamped the entire backend for Orion’s aggregator using Typescript, making the service highly Generic and configurable.",
+      ],
+      [
+        "Conceptualized, designed and built a prototype to demonstrate 1:N face search deployed on AWS EC2 with AWS Auto Scaling enabled using Terraform leading to multiple clients onboarding.",
+      ],
     ],
-    skills: ["Vue.js", "D3.js", "SCSS", "Jest"],
+    skills: ["React", "TypeScript", "node", "AWS", "PostgresQL", "MongoDB"],
+  },
+  {
+    id: "3",
+    roles: ["Software Engineer Intern"],
+    company: "Upscale.ai",
+    period: "May 2020 – July 2020",
+    description: [
+      [
+        "Conceptualized, designed and built a prototype to demonstrate 1:N face search deployed on AWS EC2 with AWS Auto Scaling enabled using Terraform leading to multiple clients onboarding.",
+      ],
+    ],
+    skills: ["React", "TypeScript", "node", "AWS", "PostgresQL", "MongoDB"],
+  },
+  {
+    id: "4",
+    roles: ["Software Engineer Intern"],
+    company: "Nineleaps",
+    period: "Jun 2019 – Aug 2019",
+    description: [
+      [
+        "Designed and developed reusable React components that enhanced the performance and user experience for a platform that lets customers design their Apartment on a 3D scale.",
+      ],
+    ],
+    skills: ["React", "TypeScript", "javascript"],
   },
 ];
 

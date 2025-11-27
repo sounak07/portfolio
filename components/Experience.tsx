@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { EXPERIENCES } from '../constants';
+import React from "react";
+import styled from "styled-components";
+import { EXPERIENCES } from "../constants";
 
 const Section = styled.section`
   padding: 4rem 0;
@@ -153,32 +153,33 @@ const Experience: React.FC = () => {
     <Section id="experience">
       <Container>
         <SectionTitle>Experience</SectionTitle>
-        
+
         <ExperienceList>
-          {EXPERIENCES.map((job) => (
+          {EXPERIENCES.map((job, index) => (
             <ExperienceItemWrapper key={job.id}>
-              {/* Period */}
               <PeriodWrapper>
                 <PeriodTag>{job.period}</PeriodTag>
               </PeriodWrapper>
 
-              {/* Content */}
               <ContentColumn>
                 <TimelineDot />
-                
-                <RoleHeader>
-                  <Role>{job.role}</Role>
-                  <Company>{job.company}</Company>
-                </RoleHeader>
-                
-                <DescriptionList>
-                  {job.description.map((desc, i) => (
-                    <li key={i}>{desc}</li>
-                  ))}
-                </DescriptionList>
+                {job.description.map((des, index) => (
+                  <>
+                    <RoleHeader>
+                      <Role>{job.roles[index]}</Role>
+                      <Company>{job.company}</Company>
+                    </RoleHeader>
+
+                    <DescriptionList>
+                      {des.map((desc, i) => (
+                        <li key={i}>{desc}</li>
+                      ))}
+                    </DescriptionList>
+                  </>
+                ))}
 
                 <SkillsContainer>
-                  {job.skills.map(skill => (
+                  {job.skills.map((skill) => (
                     <SkillBadge key={skill}>{skill}</SkillBadge>
                   ))}
                 </SkillsContainer>
