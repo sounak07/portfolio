@@ -43,7 +43,7 @@ export const EXPERIENCES: ExperienceItem[] = [
   {
     id: "1",
     roles: ["Senior Software Engineer I", "Software Engineer II"],
-    company: "Raft",
+    company: "Raft AI",
     period: "Jul 2022 - Nov 2025",
     description: [
       ["Working in Gen3, Finance Improvements"],
@@ -58,7 +58,7 @@ export const EXPERIENCES: ExperienceItem[] = [
   {
     id: "2",
     roles: ["Software Engineer", "Software Engineer Intern"],
-    company: "Hyperverge",
+    company: "Hyperverge Inc.",
     period: "Jan 2021 – Jul 2022",
     description: [
       [
