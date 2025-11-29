@@ -13,9 +13,9 @@ export const PROFILE = {
 
 export const GITHUB_CONFIG = {
   username: "sounak07",
-  repo: "portfolio-v2",
+  repo: "backend-engineering",
   branch: "main",
-  folder: "posts",
+  folder: "system_design_studies",
 };
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -100,60 +100,16 @@ export const EXPERIENCES: ExperienceItem[] = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "react-server-components-deep-dive",
-    title: "Understanding React Server Components",
-    date: "Oct 15, 2023",
-    excerpt:
-      "A comprehensive guide to how RSCs change the mental model of data fetching in React applications.",
-    tags: ["React", "Architecture"],
-  },
-  {
-    slug: "mastering-tailwind-css",
-    title: "Mastering Tailwind CSS Patterns",
-    date: "Sep 22, 2023",
-    excerpt:
-      "Tips and tricks for maintaining scalability in large Tailwind projects without CSS bloat.",
-    tags: ["CSS", "Tailwind"],
-  },
-  {
-    slug: "clean-code-typescript",
-    title: "Clean Code Principles in TypeScript",
-    date: "Aug 10, 2023",
-    excerpt:
-      "Applying SOLID principles to modern functional TypeScript codebases.",
-    tags: ["TypeScript", "Clean Code"],
+    slug: "kafka_for_dummies",
+    title: "Kafka for Dummies",
+    date: "Nov 29, 2025",
+    excerpt: "A detailed deep dive into kafka and its components.",
+    tags: ["Kafka", "distributed-logging"],
   },
 ];
 
-export const DEMO_MARKDOWN_CONTENT = `
-# Understanding React Server Components
+export const MARKDOWN_CONTEN_FALLBACK = `
+## Error
 
-React Server Components (RSC) represent a paradigm shift in how we build React applications. Unlike traditional Client Components, RSCs execute exclusively on the server.
-
-## Why RSC?
-
-1. **Zero Bundle Size**: Dependencies used in RSCs are not sent to the client.
-2. **Direct Backend Access**: Query databases directly from your components.
-3. **Automatic Code Splitting**: The client only downloads the code it needs.
-
-## Code Example
-
-\`\`\`tsx
-// Server Component
-import db from './database';
-
-async function Note({ id }) {
-  const note = await db.notes.get(id);
-  return (
-    <div>
-      <h2>{note.title}</h2>
-      <p>{note.body}</p>
-    </div>
-  );
-}
-\`\`\`
-
-## Conclusion
-
-RSC allows us to blend the best of server-side rendering and client-side interactivity.
+Error fetching blogs! Please try again later.
 `;
