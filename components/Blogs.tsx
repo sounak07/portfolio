@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { BLOG_POSTS } from '../constants';
-import { fetchBlogContent } from '../services/blogService';
-import { BlogPost } from '../types';
-import MarkdownRenderer from './MarkdownRenderer';
-import { ArrowLeft, Calendar, Tag } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+import { BLOG_POSTS } from "../constants";
+import { fetchBlogContent } from "../services/blogService";
+import { BlogPost } from "../types";
+import MarkdownRenderer from "./MarkdownRenderer";
+import { ArrowLeft, Calendar, Tag } from "lucide-react";
 
 interface BlogsProps {
   onBack: () => void;
@@ -48,11 +48,11 @@ const BackButton = styled.button`
   color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: 2rem;
   transition: color 0.2s;
-  
+
   &:hover {
     color: ${({ theme }) => theme.colors.text};
   }
-  
+
   &:hover svg {
     transform: translateX(-4px);
   }
@@ -118,7 +118,7 @@ const Dot = styled.div<{ $delay: string }>`
   background-color: ${({ theme }) => theme.colors.textMuted};
   border-radius: 9999px;
   animation: ${bounce} 1s infinite;
-  animation-delay: ${props => props.$delay};
+  animation-delay: ${(props) => props.$delay};
 `;
 
 /* List View Styles */
@@ -247,14 +247,13 @@ const Blogs: React.FC<BlogsProps> = ({ onBack }) => {
   useEffect(() => {
     if (selectedPost) {
       setLoading(true);
-      fetchBlogContent(selectedPost.slug)
-        .then(text => {
-          setContent(text);
-          setLoading(false);
-          window.scrollTo(0,0);
-        });
+      fetchBlogContent(selectedPost.slug).then((text) => {
+        setContent(text);
+        setLoading(false);
+        window.scrollTo(0, 0);
+      });
     } else {
-        setContent(null);
+      setContent(null);
     }
   }, [selectedPost]);
 
@@ -262,34 +261,34 @@ const Blogs: React.FC<BlogsProps> = ({ onBack }) => {
     return (
       <Container>
         <BackButton onClick={() => setSelectedPost(null)}>
-            <ArrowLeft size={16} />
-            Back to all posts
+          <ArrowLeft size={16} />
+          Back to all posts
         </BackButton>
 
         <DetailHeader>
-            <MetaInfo>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <Calendar size={14}/> {selectedPost.date}
-                </span>
-            </MetaInfo>
-            <DetailTitle>{selectedPost.title}</DetailTitle>
-            <TagList>
-                {selectedPost.tags.map(tag => (
-                    <DetailTag key={tag}>#{tag}</DetailTag>
-                ))}
-            </TagList>
+          <MetaInfo>
+            <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <Calendar size={14} /> {selectedPost.date}
+            </span>
+          </MetaInfo>
+          <DetailTitle>{selectedPost.title}</DetailTitle>
+          <TagList>
+            {selectedPost.tags.map((tag) => (
+              <DetailTag key={tag}>#{tag}</DetailTag>
+            ))}
+          </TagList>
         </DetailHeader>
-        
-        <div style={{ minHeight: '300px' }}>
-            {loading ? (
-                <LoadingSpinner>
-                   <Dot $delay="0s" />
-                   <Dot $delay="0.1s" />
-                   <Dot $delay="0.2s" />
-                </LoadingSpinner>
-            ) : (
-                <MarkdownRenderer content={content || ''} />
-            )}
+
+        <div style={{ minHeight: "300px" }}>
+          {loading ? (
+            <LoadingSpinner>
+              <Dot $delay="0s" />
+              <Dot $delay="0.1s" />
+              <Dot $delay="0.2s" />
+            </LoadingSpinner>
+          ) : (
+            <MarkdownRenderer content={content || ""} />
+          )}
         </div>
       </Container>
     );
@@ -299,32 +298,30 @@ const Blogs: React.FC<BlogsProps> = ({ onBack }) => {
     <Container>
       <ListHeader>
         <PageTitle>Writing</PageTitle>
-        <Subtitle>Thoughts on software engineering, architecture, and design.</Subtitle>
+        <Subtitle>
+          Thoughts on software engineering, architecture, and design.
+        </Subtitle>
       </ListHeader>
 
       <PostList>
-        {BLOG_POSTS.map(post => (
-          <PostItem 
-            key={post.slug} 
-            onClick={() => setSelectedPost(post)}
-          >
+        {BLOG_POSTS.map((post) => (
+          <PostItem key={post.slug} onClick={() => setSelectedPost(post)}>
             <PostTitleRow>
-                <PostTitle>{post.title}</PostTitle>
-                <PostDate>{post.date}</PostDate>
+              <PostTitle>{post.title}</PostTitle>
+              <PostDate>{post.date}</PostDate>
             </PostTitleRow>
             <Excerpt>{post.excerpt}</Excerpt>
             <PostFooter>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    {post.tags.map(tag => (
-                        <ListTag key={tag}>#{tag}</ListTag>
-                    ))}
-                </div>
-                <MobileReadMore>
-                    Read <ArrowLeft style={{ transform: 'rotate(180deg)' }} size={14}/>
-                </MobileReadMore>
-                 <ReadMore>
-                    Read Article &rarr;
-                </ReadMore>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                {post.tags.map((tag) => (
+                  <ListTag key={tag}>#{tag}</ListTag>
+                ))}
+              </div>
+              <MobileReadMore>
+                Read{" "}
+                <ArrowLeft style={{ transform: "rotate(180deg)" }} size={14} />
+              </MobileReadMore>
+              <ReadMore>Read Article &rarr;</ReadMore>
             </PostFooter>
           </PostItem>
         ))}

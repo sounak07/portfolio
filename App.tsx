@@ -82,7 +82,7 @@ function App() {
         <Main>
           {currentView === "home" && (
             <AnimatedSection>
-              <Hero />
+              <Hero onNavigate={() => handleNavigate("blogs")} />
               <Experience />
               <GithubActivity />
             </AnimatedSection>

@@ -20,6 +20,7 @@ export const GITHUB_CONFIG = {
 
 export const SOCIAL_LINKS: SocialLink[] = [
   { name: "GitHub", url: "https://github.com/sounak07", icon: "github" },
+  { name: "Email", url: `mailto:${PROFILE.email}`, icon: "mail" },
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/sounak08",
@@ -31,11 +32,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
     icon: "stackoverflow",
   },
   { name: "X", url: "https://x.com/sounak_08", icon: "twitter" },
-  {
-    name: "Instagram",
-    url: "https://instagram.com/_reactivist_",
-    icon: "instagram",
-  },
   { name: "Topmate", url: "https://topmate.io/sounak_fyi", icon: "topmate" },
 ];
 

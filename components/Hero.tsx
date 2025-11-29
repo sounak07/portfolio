@@ -10,7 +10,9 @@ import {
   FileText,
   Coffee,
   Mail,
+  BookOpen,
 } from "lucide-react";
+import { NavigateCallback } from "@/types";
 
 const IconMap: Record<string, React.ComponentType<any>> = {
   github: Github,
@@ -145,6 +147,55 @@ const NameHeading = styled.h1`
   }
 `;
 
+const ActionsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  animation: ${slideUp} 1s ease-out 1s backwards;
+`;
+
+const PrimaryButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primaryInverse};
+  font-weight: 500;
+  transition: all 0.2s;
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.textSecondary};
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
+    color: ${({ theme }) => theme.colors.primaryInverse};
+  }
+`;
+
+const SecondaryButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.text};
+  font-weight: 500;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.backgroundAlt};
+    transform: translateY(-2px);
+    border-color: ${({ theme }) => theme.colors.textSecondary};
+  }
+`;
+
 const GradientText = styled.span`
   background-clip: text;
   -webkit-background-clip: text;
@@ -237,7 +288,11 @@ const ResumeButton = styled.a`
   }
 `;
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onNavigate: NavigateCallback;
+}
+
+const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   const [typedNameIndex, setTypedNameIndex] = useState(0);
   const [typedTitleIndex, setTypedTitleIndex] = useState(0);
   const typedName = useMemo(
@@ -320,16 +375,21 @@ const Hero: React.FC = () => {
             })}
           </SocialLinksContainer>
 
-          <ResumeButtonContainer>
-            <ResumeButton
+          <ActionsContainer>
+            <PrimaryButton
               href={PROFILE.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
               <FileText size={18} />
-              Download Resume
-            </ResumeButton>
-          </ResumeButtonContainer>
+              Resume
+            </PrimaryButton>
+
+            <SecondaryButton onClick={() => onNavigate("blogs")}>
+              <BookOpen size={18} />
+              Read Blogs
+            </SecondaryButton>
+          </ActionsContainer>
         </ContentWrapper>
       </Layout>
     </Section>

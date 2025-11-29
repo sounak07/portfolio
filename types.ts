@@ -40,3 +40,5 @@ export interface BlogPost {
 }
 
 export type ViewState = "home" | "blogs" | "blog-detail";
+
+export type NavigateCallback = (view: ViewState, slug?: string) => void;
