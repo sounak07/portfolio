@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import Header from "./components/Header";
+import { Analytics } from "@vercel/analytics/react";
 import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import GithubActivity from "./components/Projects";
@@ -98,6 +99,7 @@ function App() {
         <Footer>
           <p>© {new Date().getFullYear()} Sounak</p>
         </Footer>
+        <Analytics />
       </AppContainer>
     </ThemeProvider>
   );
