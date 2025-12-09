@@ -120,7 +120,7 @@ function App() {
         </Main>
 
         <Footer>
-          <p>© {new Date().getFullYear()} Sounak</p>
+          <p>© {new Date().getFullYear()} | Made by Sounak with ❤️</p>
         </Footer>
         <Analytics />
       </AppContainer>
