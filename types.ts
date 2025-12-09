@@ -16,8 +16,8 @@ export interface ExperienceItem {
   roles: string[];
   company: string;
   period: string;
-  description: Array<Array<string>>;
-  skills: string[];
+  logo?: string;
+  type?: string;
 }
 
 export interface ProjectItem {

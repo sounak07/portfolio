@@ -4,7 +4,7 @@ import { EXPERIENCES } from "../constants";
 
 const Section = styled.section`
   padding: 4rem 0;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  /* border-top: 1px solid ${({ theme }) => theme.colors.border}; */
 `;
 
 const Container = styled.div`
@@ -21,187 +21,98 @@ const SectionTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 `;
 
 const ExperienceList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
 `;
 
 const ExperienceItemWrapper = styled.div`
-  position: relative;
-  padding-left: 2rem;
-
-  @media (min-width: 768px) {
-    padding-left: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  
+  @media (min-width: 640px) {
+    grid-template-columns: auto 1fr auto;
   }
 `;
 
-const PeriodWrapper = styled.div`
-  margin-bottom: 0.5rem;
+const LogoWrapper = styled.div`
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: ${({ theme }) => theme.colors.backgroundAlt};
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
 
-  @media (min-width: 768px) {
-    margin-bottom: 0;
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CompanyName = styled.h4`
+  font-size: 1rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: 0.125rem;
+  text-transform: lowercase;
+`;
+
+const RoleInfo = styled.p`
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  text-transform: lowercase;
+`;
+
+const PeriodWrapper = styled.div`
+  grid-column: 2 / 3;
+  
+  @media (min-width: 640px) {
+    grid-column: auto;
     text-align: right;
   }
 `;
 
-const PeriodTag = styled.span`
+const PeriodText = styled.span`
   font-size: 0.875rem;
-  font-family: monospace;
   color: ${({ theme }) => theme.colors.textSecondary};
-  background-color: ${({ theme }) => theme.colors.backgroundAlt};
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-`;
-
-const ContentColumn = styled.div`
-  position: relative;
-  border-left: 2px solid ${({ theme }) => theme.colors.border};
-  padding-left: 2rem;
-  padding-bottom: 0.5rem;
-
-  @media (min-width: 768px) {
-    grid-column: span 3 / span 3;
-    padding-bottom: 0;
-  }
-`;
-
-const TimelineDot = styled.div`
-  position: absolute;
-  left: -9px;
-  top: 0;
-  height: 1rem;
-  width: 1rem;
-  border-radius: 9999px;
-  background-color: ${({ theme }) => theme.colors.border};
-  border: 4px solid ${({ theme }) => theme.colors.background};
-  transition: background-color 0.2s;
-
-  ${ExperienceItemWrapper}:hover & {
-    background-color: ${({ theme }) => theme.colors.textSecondary};
-  }
-`;
-
-const RoleHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.5rem;
-
-  @media (min-width: 640px) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-`;
-
-const Role = styled.h4`
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const Company = styled.span`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  position: relative;
-  cursor: default;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 0%;
-    height: 2px;
-    background: currentColor;
-    transition: width 0.25s ease;
-    border-radius: 2px;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
-`;
-
-const DescriptionList = styled.ul`
-  list-style-type: disc;
-  list-style-position: outside;
-  margin-left: 1rem;
-  margin-bottom: 1rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  li {
-    line-height: 1.625;
-  }
-`;
-
-const SkillsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-`;
-
-const SkillBadge = styled.span`
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  transition: all 0.2s;
-  cursor: default;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.textSecondary};
-    color: ${({ theme }) => theme.colors.text};
-  }
+  text-transform: lowercase;
 `;
 
 const Experience: React.FC = () => {
   return (
     <Section id="experience">
       <Container>
-        <SectionTitle>Experience</SectionTitle>
+        <SectionTitle>journey so far</SectionTitle>
 
         <ExperienceList>
-          {EXPERIENCES.map((job, index) => (
+          {EXPERIENCES.map((job) => (
             <ExperienceItemWrapper key={job.id}>
+              <LogoWrapper>
+                <img src={job.logo} alt={job.company} />
+              </LogoWrapper>
+              
+              <ContentWrapper>
+                <CompanyName>{job.company}</CompanyName>
+                <RoleInfo>
+                  {job.roles[0]} {job.type && `| ${job.type}`}
+                </RoleInfo>
+              </ContentWrapper>
+
               <PeriodWrapper>
-                <PeriodTag>{job.period}</PeriodTag>
+                <PeriodText>{job.period}</PeriodText>
               </PeriodWrapper>
-
-              <ContentColumn>
-                <TimelineDot />
-                {job.description.map((des, index) => (
-                  <>
-                    <RoleHeader>
-                      <Role>{job.roles[index]}</Role>
-                      <Company>{job.company}</Company>
-                    </RoleHeader>
-
-                    <DescriptionList>
-                      {des.map((desc, i) => (
-                        <li key={i}>{desc}</li>
-                      ))}
-                    </DescriptionList>
-                  </>
-                ))}
-
-                <SkillsContainer>
-                  {job.skills.map((skill) => (
-                    <SkillBadge key={skill}>{skill}</SkillBadge>
-                  ))}
-                </SkillsContainer>
-              </ContentColumn>
             </ExperienceItemWrapper>
           ))}
         </ExperienceList>

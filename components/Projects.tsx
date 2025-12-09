@@ -117,16 +117,16 @@ const RepoCard = styled.a`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1.5rem;
-  background-color: ${({ theme }) => theme.colors.cardBg};
-  border-radius: 0.75rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  transition: all 0.3s;
+  padding: 1.25rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  border: 1px solid ${({ theme }) => theme.colors.border}40;
+  transition: all 0.2s ease;
 
   &:hover {
+    background-color: ${({ theme }) => theme.colors.backgroundAlt}40;
     border-color: ${({ theme }) => theme.colors.textSecondary};
-    transform: translateY(-4px);
-    box-shadow: ${({ theme }) => theme.shadows.md};
+    transform: translateY(-2px);
   }
 `;
 
@@ -156,9 +156,10 @@ const RepoDesc = styled.p`
   margin-bottom: 1.5rem;
   flex-grow: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  opacity: 0.8;
 `;
 
 const RepoFooter = styled.div`
@@ -168,8 +169,8 @@ const RepoFooter = styled.div`
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   padding-top: 1rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.backgroundAlt};
   margin-top: auto;
+  opacity: 0.8;
 `;
 
 const StatsGroup = styled.div`

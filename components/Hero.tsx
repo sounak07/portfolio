@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
-import styled, { keyframes, css } from "styled-components";
+import React from "react";
+import styled, { keyframes } from "styled-components";
 import { PROFILE, SOCIAL_LINKS } from "../constants";
+import { NavigateCallback } from "@/types";
 import {
   Github,
   Linkedin,
@@ -12,7 +13,6 @@ import {
   Mail,
   BookOpen,
 } from "lucide-react";
-import { NavigateCallback } from "@/types";
 
 const IconMap: Record<string, React.ComponentType<any>> = {
   github: Github,
@@ -25,16 +25,6 @@ const IconMap: Record<string, React.ComponentType<any>> = {
 };
 
 // Animations
-const blink = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-`;
-
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
-
 const slideUp = keyframes`
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -46,197 +36,57 @@ const zoomIn = keyframes`
 `;
 
 const Section = styled.section`
-  padding-top: 8rem;
+  padding-top: 5rem;
   padding-bottom: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  max-width: 1024px;
+  max-width: 800px;
   margin: 0 auto;
-  min-height: 80vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 4rem;
 
   @media (min-width: 768px) {
-    padding-top: 12rem;
+    padding-top: 10rem;
     padding-bottom: 6rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    min-height: 80vh;
+    gap: 6rem;
   }
 `;
 
-const Layout = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  width: 100%;
-
-  @media (min-width: 768px) {
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-`;
-
-const ProfileImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-  animation: ${zoomIn} 1s ease-out 0.5s backwards;
-
-  @media (min-width: 768px) {
-    justify-content: flex-end;
-  }
-`;
-
-const ImageContainer = styled.div`
-  position: relative;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 9999px;
-  padding: 0.25rem;
-  background: linear-gradient(
-    to bottom right,
-    ${({ theme }) => theme.colors.border},
-    ${({ theme }) => theme.colors.background}
-  );
-  box-shadow: ${({ theme }) => theme.shadows.lg};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 9999px;
-    object-fit: cover;
-  }
-
-  @media (min-width: 768px) {
-    width: 12rem;
-    height: 12rem;
-  }
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: column-reverse;
   gap: 2rem;
-  max-width: 42rem;
-  width: 100%;
+  align-items: center;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 `;
 
-const TextBlock = styled.div`
+const HeaderContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
 `;
 
-const NameHeading = styled.h1`
-  font-size: 3rem;
+const Title = styled.h1`
+  font-size: 2.5rem;
   font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-
-  @media (min-width: 768px) {
-    font-size: 4.5rem;
-  }
-`;
-
-const ActionsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-  padding-top: 1rem;
-  animation: ${slideUp} 1s ease-out 1s backwards;
-`;
-
-const PrimaryButton = styled.a`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.primaryInverse};
-  font-weight: 500;
-  transition: all 0.2s;
-  box-shadow: ${({ theme }) => theme.shadows.md};
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.textSecondary};
-    transform: translateY(-2px);
-    box-shadow: ${({ theme }) => theme.shadows.lg};
-    color: ${({ theme }) => theme.colors.primaryInverse};
-  }
-`;
-
-const SecondaryButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: transparent;
   color: ${({ theme }) => theme.colors.text};
-  font-weight: 500;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  transition: all 0.2s;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.backgroundAlt};
-    transform: translateY(-2px);
-    border-color: ${({ theme }) => theme.colors.textSecondary};
-  }
-`;
-
-const GradientText = styled.span`
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  background-image: linear-gradient(
-    to right,
-    ${({ theme }) => theme.colors.text},
-    ${({ theme }) => theme.colors.textSecondary},
-    ${({ theme }) => theme.colors.textMuted}
-  );
-`;
-
-const BlinkingCursor = styled.span<{ $height: string }>`
-  display: inline-block;
-  width: 4px;
-  height: ${(props) => props.$height};
-  background-color: ${({ theme }) => theme.colors.text};
-  margin-left: 0.25rem;
-  vertical-align: middle;
-  animation: ${blink} 1s step-end infinite;
-`;
-
-const TitleHeading = styled.h2`
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  height: 1.5em;
-  display: flex;
-  align-items: center;
-
+  letter-spacing: -0.025em;
+  
   @media (min-width: 768px) {
-    font-size: 1.875rem;
+    font-size: 4rem;
   }
-`;
-
-const Bio = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  line-height: 1.625;
-  max-width: 42rem;
-  animation: ${slideUp} 1s ease-out 1s backwards;
 `;
 
 const SocialLinksContainer = styled.div`
@@ -244,47 +94,78 @@ const SocialLinksContainer = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
-  animation: ${slideUp} 1s ease-out 1s backwards;
 `;
 
 const SocialLink = styled.a`
-  padding: 0.75rem;
+  padding: 0.5rem;
   border-radius: 9999px;
-  background-color: ${({ theme }) => theme.colors.backgroundAlt};
+  background-color: transparent;
   color: ${({ theme }) => theme.colors.textSecondary};
   transition: all 0.2s;
+  border: 1px solid ${({ theme }) => theme.colors.border};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.hover};
-    color: ${({ theme }) => theme.colors.text};
-    transform: translateY(-4px);
+    background-color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.background};
+    border-color: ${({ theme }) => theme.colors.text};
+    transform: translateY(-2px);
   }
 `;
 
-const ResumeButtonContainer = styled.div`
-  padding-top: 1rem;
-  animation: ${slideUp} 1s ease-out 1s backwards;
+const ImageContainer = styled.div`
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid ${({ theme }) => theme.colors.border};
+  animation: ${zoomIn} 1s ease-out backwards;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
-const ResumeButton = styled.a`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.primaryInverse};
-  font-weight: 500;
+const AboutSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: ${slideUp} 1s ease-out 0.5s backwards;
+`;
+
+const AboutHeading = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.text};
+  
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const BioParagraph = styled.p`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.625;
+  
+  @media (min-width: 768px) {
+    font-size: 1.125rem;
+  }
+`;
+
+const Link = styled.a`
+  color: ${({ theme }) => theme.colors.text};
+  text-decoration: underline;
+  text-decoration-color: ${({ theme }) => theme.colors.textSecondary};
+  text-underline-offset: 4px;
+  cursor: pointer;
   transition: all 0.2s;
-  box-shadow: ${({ theme }) => theme.shadows.md};
 
   &:hover {
-    background-color: ${({ theme }) =>
-      theme.colors
-        .textSecondary}; /* Slightly lighter than primary for hover effect fallback */
-    transform: translateY(-4px);
-    box-shadow: ${({ theme }) => theme.shadows.lg};
-    color: ${({ theme }) => theme.colors.primaryInverse};
+    color: ${({ theme }) => theme.colors.primary};
+    text-decoration-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -293,71 +174,11 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
-  const [typedNameIndex, setTypedNameIndex] = useState(0);
-  const [typedTitleIndex, setTypedTitleIndex] = useState(0);
-  const typedName = useMemo(
-    () => PROFILE.name.slice(0, typedNameIndex),
-    [typedNameIndex]
-  );
-  const typedTitle = useMemo(
-    () => PROFILE.title.slice(0, typedTitleIndex),
-    [typedTitleIndex]
-  );
-
-  // Typing effect logic
-  useEffect(() => {
-    const nameText = PROFILE.name;
-    const titleText = PROFILE.title;
-    let nameIndex = 0;
-    let titleIndex = 0;
-    let typingTimeout: any;
-
-    const typeName = () => {
-      if (nameIndex <= nameText.length) {
-        setTypedNameIndex(nameIndex++);
-        typingTimeout = setTimeout(typeName, 100);
-      } else {
-        typingTimeout = setTimeout(typeTitle, 400);
-      }
-    };
-
-    const typeTitle = () => {
-      if (titleIndex <= titleText.length) {
-        setTypedTitleIndex(titleIndex++);
-        typingTimeout = setTimeout(typeTitle, 50);
-      }
-    };
-
-    typingTimeout = setTimeout(typeName, 500);
-
-    return () => clearTimeout(typingTimeout);
-  }, []);
-
   return (
     <Section>
-      <Layout>
-        <ProfileImageWrapper>
-          <ImageContainer>
-            <img src={PROFILE.avatar} alt={PROFILE.name} />
-          </ImageContainer>
-        </ProfileImageWrapper>
-
-        <ContentWrapper>
-          <TextBlock>
-            <NameHeading>
-              <GradientText>{typedName}</GradientText>
-              {typedTitle.length === 0 && <BlinkingCursor $height="1em" />}
-            </NameHeading>
-            <TitleHeading>
-              {typedTitle}
-              {typedTitle.length > 0 &&
-                typedTitle.length < PROFILE.title.length && (
-                  <BlinkingCursor $height="1.2em" />
-                )}
-            </TitleHeading>
-            <Bio>{PROFILE.bio}</Bio>
-          </TextBlock>
-
+      <HeaderContainer>
+        <HeaderContent>
+          <Title>hi, {PROFILE.name.toLowerCase()} here</Title>
           <SocialLinksContainer>
             {SOCIAL_LINKS.map((link) => {
               const Icon = IconMap[link.icon] || Layers;
@@ -369,29 +190,38 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                   rel="noopener noreferrer"
                   aria-label={link.name}
                 >
-                  <Icon size={22} />
+                  <Icon size={20} />
                 </SocialLink>
               );
             })}
           </SocialLinksContainer>
+        </HeaderContent>
 
-          <ActionsContainer>
-            <PrimaryButton
-              href={PROFILE.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FileText size={18} />
-              Resume
-            </PrimaryButton>
+        <ImageContainer>
+          <img src={PROFILE.avatar} alt={PROFILE.name} />
+        </ImageContainer>
+      </HeaderContainer>
 
-            <SecondaryButton onClick={() => onNavigate("blogs")}>
-              <BookOpen size={18} />
-              Read Blogs
-            </SecondaryButton>
-          </ActionsContainer>
-        </ContentWrapper>
-      </Layout>
+      <AboutSection>
+        <AboutHeading>about</AboutHeading>
+        
+        <BioParagraph>
+          tldr; {PROFILE.bio.split(".")[0].toLowerCase()}.
+        </BioParagraph>
+
+        <BioParagraph>
+          i have deep expertise in data structures, algorithms, OOP, and design patterns.
+        </BioParagraph>
+
+        <BioParagraph>
+          i really love building teams, taking an orgs engineering culture and unleveling them.
+        </BioParagraph>
+
+        <BioParagraph>
+          read me blogs,{" "}
+          <Link onClick={() => onNavigate("blogs")}>here</Link>.
+        </BioParagraph>
+      </AboutSection>
     </Section>
   );
 };

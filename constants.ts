@@ -3,7 +3,7 @@ import { SocialLink, ExperienceItem, BlogPost } from "./types";
 export const PROFILE = {
   name: "Sounak",
   title: "Senior Software Engineer",
-  bio: "Hi I’m Sounak, I have a passion for backend distributed systems, love to work at customer facing products. I have deep expertise in data structures, algorithms, OOP, and design patterns—and I really love building teams, taking an orgs engineering culture and unleveling them.",
+  bio: "Hi I’m Sounak, I have a passion for distributed systems, love to work at customer facing products.",
   avatar: "https://github.com/sounak07.png",
   location: "Bengalurur, India",
   email: "sounakume@gmail.com",
@@ -35,62 +35,38 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { name: "Topmate", url: "https://topmate.io/sounak_fyi", icon: "topmate" },
 ];
 
-export const EXPERIENCES: ExperienceItem[] = [
+export const EXPERIENCES: Array<ExperienceItem> = [
   {
     id: "1",
-    roles: ["Senior Software Engineer I", "Software Engineer II"],
+    roles: ["Senior Software Engineer I"],
+    type: "Fulltime",
     company: "Raft AI",
-    period: "Jul 2022 - Nov 2025",
-    description: [
-      ["Working in Gen3, Finance Improvements"],
-      [
-        "Designed and developed the Cargowise Ref Service from scratch, implementing an EAV pattern, async workflows with celery.",
-        "Spearheaded Statements Integration, enhancing customer visibility and reducing payment delays by 30%.",
-        "Established test automation, code standards, CI/CD pipelines, Helm charts, and telemetry with Datadog and Sentry enhancing observability.",
-      ],
-    ],
-    skills: ["React", "TypeScript", "Python", "k8s", "GCP", "PostgresQL"],
+    logo: "https://cdn.prod.website-files.com/634dc126d92a901d43966284/634dc126d92a900da59662b6_Favicon.png",
+    period: "Jul 2022 - Present",
   },
   {
     id: "2",
-    roles: ["Software Engineer", "Software Engineer Intern"],
+    roles: ["Software Engineer"],
+    type: "Fulltime",
     company: "Hyperverge Inc.",
-    period: "Jan 2021 – Jul 2022",
-    description: [
-      [
-        "Designed and developed Sim-SaaS, a CPU based vector similarity search service from scratch using FastApi.",
-        "Assisted in development and scaling of FRaaS, a face digitization and face recognition service.",
-        "Revamped the entire backend for Orion’s aggregator using Typescript, making the service highly Generic and configurable.",
-      ],
-      [
-        "Conceptualized, designed and built a prototype to demonstrate 1:N face search deployed on AWS EC2 with AWS Auto Scaling enabled using Terraform leading to multiple clients onboarding.",
-      ],
-    ],
-    skills: ["React", "TypeScript", "node", "AWS", "PostgresQL", "MongoDB"],
+    logo: "https://cdn.hyperverge.co/wp-content/uploads/2025/08/favicon.png",
+    period: "Jul 2020 – Jul 2022",
   },
   {
     id: "3",
-    roles: ["Software Engineer Intern"],
-    company: "Upscale.ai",
-    period: "May 2020 – July 2020",
-    description: [
-      [
-        "Conceptualized, designed and built a prototype to demonstrate 1:N face search deployed on AWS EC2 with AWS Auto Scaling enabled using Terraform leading to multiple clients onboarding.",
-      ],
-    ],
-    skills: ["React", "TypeScript", "node", "AWS", "PostgresQL", "MongoDB"],
+    roles: ["Software Engineering Intern"],
+    type: "Internship",
+    company: "Upscale AI",
+    logo: "https://ui-avatars.com/api/?name=Upscale+AI&background=random&color=fff",
+    period: "May 2020 – Jul 2020",
   },
   {
     id: "4",
-    roles: ["Software Engineer Intern"],
+    roles: ["Software Engineering Intern"],
+    type: "Internship",
     company: "Nineleaps",
-    period: "Jun 2019 – Aug 2019",
-    description: [
-      [
-        "Designed and developed reusable React components that enhanced the performance and user experience for a platform that lets customers design their Apartment on a 3D scale.",
-      ],
-    ],
-    skills: ["React", "TypeScript", "javascript"],
+    logo: "https://www.nineleaps.com/wp-content/themes/nineleaps/assets/images/favicon/apple-icon-72x72.png",
+    period: "May 2019 – Jul 2019",
   },
 ];
 
