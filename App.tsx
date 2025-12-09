@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider, keyframes } from "styled-components";
+import { Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import { Analytics } from "@vercel/analytics/react";
 import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import GithubActivity from "./components/Projects";
 import Blogs from "./components/Blogs";
+import BlogDetail from "./components/BlogDetail";
 import { ViewState } from "./types";
 import { GlobalStyles, lightTheme, darkTheme } from "./styles";
 
@@ -39,8 +41,9 @@ const AnimatedSection = styled.div`
 `;
 
 function App() {
-  const [currentView, setCurrentView] = useState<ViewState>("home");
   const [darkMode, setDarkMode] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check local storage or system preference
@@ -56,6 +59,10 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const toggleTheme = () => {
     setDarkMode((prev) => {
       const newMode = !prev;
@@ -64,9 +71,18 @@ function App() {
     });
   };
 
+  const getCurrentView = (): ViewState => {
+    if (location.pathname === '/') return 'home';
+    if (location.pathname === '/blogs') return 'blogs';
+    if (location.pathname.startsWith('/blog/')) return 'blog-detail';
+    return 'home';
+  };
+
+  const currentView = getCurrentView();
+
   const handleNavigate = (view: ViewState) => {
-    setCurrentView(view);
-    window.scrollTo(0, 0);
+    if (view === 'home') navigate('/');
+    else if (view === 'blogs') navigate('/blogs');
   };
 
   return (
@@ -81,19 +97,26 @@ function App() {
         />
 
         <Main>
-          {currentView === "home" && (
-            <AnimatedSection>
-              <Hero onNavigate={() => handleNavigate("blogs")} />
-              <Experience />
-              <GithubActivity />
-            </AnimatedSection>
-          )}
-
-          {(currentView === "blogs" || currentView === "blog-detail") && (
-            <AnimatedSection>
-              <Blogs onBack={() => handleNavigate("home")} />
-            </AnimatedSection>
-          )}
+          <Routes>
+            <Route path="/" element={
+              <AnimatedSection>
+                <Hero onNavigate={() => handleNavigate("blogs")} />
+                <Experience />
+                <GithubActivity />
+              </AnimatedSection>
+            } />
+            <Route path="/blogs" element={
+              <AnimatedSection>
+                <Blogs />
+              </AnimatedSection>
+            } />
+            <Route path="/blog/:slug" element={
+              <AnimatedSection>
+                <BlogDetail />
+              </AnimatedSection>
+            } />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </Main>
 
         <Footer>
