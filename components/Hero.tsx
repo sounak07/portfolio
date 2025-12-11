@@ -63,7 +63,7 @@ const HeaderContainer = styled.div`
   flex-direction: column-reverse;
   gap: 2rem;
   align-items: center;
-  
+
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
@@ -83,7 +83,7 @@ const Title = styled.h1`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
   letter-spacing: -0.025em;
-  
+
   @media (min-width: 768px) {
     font-size: 4rem;
   }
@@ -139,7 +139,7 @@ const AboutHeading = styled.h2`
   font-size: 1.5rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
-  
+
   @media (min-width: 768px) {
     font-size: 2rem;
   }
@@ -149,7 +149,7 @@ const BioParagraph = styled.p`
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   line-height: 1.625;
-  
+
   @media (min-width: 768px) {
     font-size: 1.125rem;
   }
@@ -204,22 +204,23 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
       <AboutSection>
         <AboutHeading>about</AboutHeading>
-        
+
         <BioParagraph>
           tldr; {PROFILE.bio.split(".")[0].toLowerCase()}.
         </BioParagraph>
 
         <BioParagraph>
-          i have deep expertise in data structures, algorithms, OOP, and design patterns.
+          i have deep expertise in data structures, algorithms, OOP, and design
+          patterns.
         </BioParagraph>
 
         <BioParagraph>
-          i really love building teams, taking an orgs engineering culture and unleveling them.
+          i really love building teams, taking an orgs engineering culture and
+          unleveling them.
         </BioParagraph>
 
         <BioParagraph>
-          read me blogs,{" "}
-          <Link onClick={() => onNavigate("blogs")}>here</Link>.
+          read my blogs, <Link onClick={() => onNavigate("blogs")}>here</Link>.
         </BioParagraph>
       </AboutSection>
     </Section>
