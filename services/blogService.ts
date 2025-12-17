@@ -1,8 +1,11 @@
 import { MARKDOWN_CONTEN_FALLBACK, GITHUB_CONFIG } from "../constants";
 
-export const fetchBlogContent = async (slug: string): Promise<string> => {
+export const fetchBlogContent = async (
+  slug: string,
+  folder: string
+): Promise<string> => {
   try {
-    const { username, repo, branch, folder } = GITHUB_CONFIG;
+    const { username, repo, branch } = GITHUB_CONFIG;
     const url = `https://raw.githubusercontent.com/${username}/${repo}/${branch}/${folder}/${slug}.md`;
 
     const response = await fetch(url);

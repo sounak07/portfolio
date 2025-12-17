@@ -15,7 +15,6 @@ export const GITHUB_CONFIG = {
   username: "sounak07",
   repo: "backend-engineering",
   branch: "main",
-  folder: "system_design_studies",
 };
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -73,6 +72,7 @@ export const EXPERIENCES: Array<ExperienceItem> = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "OG%20Kafka.md",
+    folder: "HLD",
     title: "Kafka for Dummies",
     date: "Nov 29, 2025",
     excerpt: "A detailed deep dive into kafka and its components.",

@@ -122,7 +122,7 @@ const BlogDetail: React.FC = () => {
   useEffect(() => {
     if (selectedPost) {
       setLoading(true);
-      fetchBlogContent(selectedPost.slug).then((text) => {
+      fetchBlogContent(selectedPost.slug, selectedPost.folder).then((text) => {
         setContent(text);
         setLoading(false);
         window.scrollTo(0, 0);

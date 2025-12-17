@@ -33,6 +33,7 @@ export interface ProjectItem {
 export interface BlogPost {
   slug: string;
   title: string;
+  folder: string;
   date: string;
   excerpt: string;
   tags: string[];
