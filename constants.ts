@@ -71,7 +71,7 @@ export const EXPERIENCES: Array<ExperienceItem> = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "OG%20Kafka.md",
+    slug: "OG Kafka",
     folder: "HLD",
     title: "Kafka for Dummies",
     date: "Nov 29, 2025",

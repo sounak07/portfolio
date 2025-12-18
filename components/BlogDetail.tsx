@@ -133,11 +133,11 @@ const BlogDetail: React.FC = () => {
   if (!selectedPost) {
     return (
       <Container>
-        <p>Blog post not found.</p>
         <BackButton onClick={() => navigate("/")}>
           <ArrowLeft size={16} />
           Back to Home
         </BackButton>
+        <p>Blog post not found.</p>
       </Container>
     );
   }
