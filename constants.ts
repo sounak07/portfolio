@@ -78,6 +78,14 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt: "A detailed deep dive into kafka and its components.",
     tags: ["Kafka", "distributed-logging"],
   },
+  {
+    slug: "Example note",
+    folder: "Reads",
+    title: "Test",
+    date: "Dec 30, 2025",
+    excerpt: "Test blog",
+    tags: ["test"],
+  },
 ];
 
 export const MARKDOWN_CONTEN_FALLBACK = `
