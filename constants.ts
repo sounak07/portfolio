@@ -78,6 +78,14 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt: "A detailed deep dive into kafka and its components.",
     tags: ["Kafka", "distributed-logging"],
   },
+  {
+    slug: "Chapter 3 - Storage and Retrieval",
+    folder: "DDIA",
+    title: "DDIA - Storage and Retrieval",
+    date: "Jan 01, 2026",
+    excerpt: "Notes for chapter 2 of DDIA",
+    tags: ["index", "databases"],
+  },
 ];
 
 export const MARKDOWN_CONTEN_FALLBACK = `
