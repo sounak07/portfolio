@@ -86,6 +86,14 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt: "Notes for chapter 2 of DDIA",
     tags: ["index", "databases"],
   },
+  {
+    slug: "solid",
+    folder: "LLD",
+    title: "SOLID principles in OOP",
+    date: "Jan 03, 2026",
+    excerpt: "Blog explains all the solid principles with examples",
+    tags: ["oop", "solids"],
+  },
 ];
 
 export const MARKDOWN_CONTEN_FALLBACK = `
