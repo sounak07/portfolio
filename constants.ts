@@ -94,6 +94,14 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt: "Blog explains all the solid principles with examples",
     tags: ["oop", "solids"],
   },
+  {
+    slug: "strategy_pattern",
+    folder: "LLD",
+    title: "Strategy Pattern",
+    date: "Jan 04, 2026",
+    excerpt: "Blog explains strategy pattern in OOP with examples",
+    tags: ["oop", "patterns"],
+  },
 ];
 
 export const MARKDOWN_CONTEN_FALLBACK = `
