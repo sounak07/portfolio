@@ -10,6 +10,7 @@ import Blogs from "./components/Blogs";
 import BlogDetail from "./components/BlogDetail";
 import { ViewState } from "./types";
 import { GlobalStyles, lightTheme, darkTheme } from "./styles";
+import { useSEO } from "./hooks/useSEO";
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -79,6 +80,25 @@ function App() {
   };
 
   const currentView = getCurrentView();
+
+  // SEO for main routes (blog detail handles its own SEO)
+  const getSEOConfig = () => {
+    if (location.pathname === '/') {
+      return {}; // Use defaults from useSEO
+    }
+    if (location.pathname === '/blogs') {
+      return {
+        title: 'Blog',
+        description: 'Technical blogs by Sounak Gupta on distributed systems, Kafka, databases, system design, and backend engineering.',
+        url: '/blogs',
+      };
+    }
+    return {};
+  };
+
+  // Only apply SEO for non-blog-detail pages (BlogDetail handles its own)
+  const shouldApplySEO = !location.pathname.startsWith('/blog/');
+  useSEO(shouldApplySEO ? getSEOConfig() : {});
 
   const handleNavigate = (view: ViewState) => {
     if (view === 'home') navigate('/');

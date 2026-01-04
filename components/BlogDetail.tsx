@@ -5,6 +5,7 @@ import { BLOG_POSTS } from "../constants";
 import { fetchBlogContent } from "../services/blogService";
 import MarkdownRenderer from "./MarkdownRenderer";
 import { ArrowLeft, Calendar } from "lucide-react";
+import { useSEO } from "../hooks/useSEO";
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -118,6 +119,19 @@ const BlogDetail: React.FC = () => {
   const [content, setContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const selectedPost = BLOG_POSTS.find((p) => p.slug === slug);
+
+  // Blog-specific SEO
+  useSEO(selectedPost ? {
+    title: selectedPost.title,
+    description: selectedPost.excerpt,
+    url: `/blog/${selectedPost.slug}`,
+    type: 'article',
+    article: {
+      publishedTime: selectedPost.date,
+      author: 'Sounak Gupta',
+      tags: selectedPost.tags,
+    },
+  } : {});
 
   useEffect(() => {
     if (selectedPost) {
