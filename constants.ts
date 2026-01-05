@@ -95,12 +95,12 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["oop", "solids"],
   },
   {
-    slug: "strategy_pattern",
+    slug: "design_patterns",
     folder: "LLD",
-    title: "Strategy Pattern",
+    title: "Design Patterns in OOP",
     date: "Jan 04, 2026",
-    excerpt: "Blog explains strategy pattern in OOP with examples",
-    tags: ["oop", "patterns"],
+    excerpt: "Blog explains all the design patterns in OOP with examples like Singleton, Factory, Observer etc.",
+    tags: ["oop", "patterns", "creational", "structural", "behavioral"],
   },
 ];
 
