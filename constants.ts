@@ -76,7 +76,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Kafka for Dummies",
     date: "Nov 29, 2025",
     excerpt: "A detailed deep dive into kafka and its components.",
-    tags: ["Kafka", "distributed-logging"],
+    tags: ["event-driven", "distributed-systems"],
   },
   {
     slug: "Chapter 3 - Storage and Retrieval",
@@ -84,7 +84,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "DDIA - Storage and Retrieval",
     date: "Jan 01, 2026",
     excerpt: "Notes for chapter 2 of DDIA",
-    tags: ["index", "databases"],
+    tags: ["databases"],
   },
   {
     slug: "solid",
@@ -92,7 +92,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "SOLID principles in OOP",
     date: "Jan 03, 2026",
     excerpt: "Blog explains all the solid principles with examples",
-    tags: ["oop", "solids"],
+    tags: ["oop"],
   },
   {
     slug: "design_patterns",
@@ -100,7 +100,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Design Patterns in OOP",
     date: "Jan 04, 2026",
     excerpt: "Blog explains all the design patterns in OOP with examples like Singleton, Factory, Observer etc.",
-    tags: ["oop", "patterns", "creational", "structural", "behavioral"],
+    tags: ["oop", "design-patterns"],
   },
 ];
 
