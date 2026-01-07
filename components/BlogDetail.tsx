@@ -22,7 +22,7 @@ const Container = styled.div`
   padding-bottom: 6rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  max-width: 48rem;
+  max-width: 64rem;
   margin: 0 auto;
   animation: ${fadeIn} 0.5s ease-out;
 
