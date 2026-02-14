@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider, keyframes } from "styled-components";
 import { Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
+import { Sun, Moon } from "lucide-react";
 import Header from "./components/Header";
 import { Analytics } from "@vercel/analytics/react";
 import Hero from "./components/Hero";
@@ -8,6 +9,7 @@ import Experience from "./components/Experience";
 import Showcase from "./components/Showcase";
 import Tools from "./components/Tools";
 import GithubActivity from "./components/Projects";
+import BottomSocial from "./components/BottomSocial";
 import Blogs from "./components/Blogs";
 import BlogDetail from "./components/BlogDetail";
 import { ViewState } from "./types";
@@ -23,6 +25,27 @@ const AppContainer = styled.div`
 const Main = styled.main`
   flex-grow: 1;
   width: 100%;
+`;
+
+const FloatingThemeButton = styled.button`
+  position: fixed;
+  top: 0.95rem;
+  right: 1rem;
+  z-index: 90;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid ${({ theme }) => `${theme.colors.border}aa`};
+  border-radius: 999px;
+  background: ${({ theme }) => `${theme.colors.background}e8`};
+  backdrop-filter: blur(8px);
+  color: ${({ theme }) => theme.colors.textSecondary};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.text};
+  }
 `;
 
 const Footer = styled.footer`
@@ -122,9 +145,10 @@ function App() {
         <Header
           currentView={currentView}
           onNavigate={handleNavigate}
-          darkMode={darkMode}
-          toggleTheme={toggleTheme}
         />
+        <FloatingThemeButton onClick={toggleTheme} aria-label="Toggle theme">
+          {darkMode ? <Sun size={15} /> : <Moon size={15} />}
+        </FloatingThemeButton>
 
         <Main>
           <Routes>
@@ -135,6 +159,7 @@ function App() {
                 <Showcase />
                 <Tools />
                 <GithubActivity />
+                <BottomSocial />
               </AnimatedSection>
             } />
             <Route path="/blogs" element={

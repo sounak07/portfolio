@@ -1,98 +1,138 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ViewState } from "../types";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 interface HeaderProps {
   currentView: ViewState;
   onNavigate: (view: ViewState) => void;
-  darkMode: boolean;
-  toggleTheme: () => void;
 }
 
-const HeaderContainer = styled.header<{ $scrolled: boolean }>`
+const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 60;
-  border-bottom: 1px solid ${({ theme, $scrolled }) => ($scrolled ? theme.colors.border : "transparent")};
-  background: ${({ theme, $scrolled }) => ($scrolled ? `${theme.colors.background}f0` : "transparent")};
-  backdrop-filter: ${({ $scrolled }) => ($scrolled ? "blur(6px)" : "none")};
+  z-index: 70;
+  padding: 0.75rem 1rem 0;
 `;
 
-const HeaderContent = styled.div`
-  max-width: 1120px;
-  margin: 0 auto;
-  height: 62px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-`;
-
-const Brand = styled.button`
-  font-family: "Sora", sans-serif;
-  font-size: 0.88rem;
-  letter-spacing: 0.04em;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const NavGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-`;
-
-const DesktopNav = styled.nav`
+const DesktopWrap = styled.div`
   display: none;
-  align-items: center;
-  gap: 0.15rem;
 
-  @media (min-width: 880px) {
+  @media (min-width: 940px) {
     display: flex;
+    justify-content: center;
+  }
+`;
+
+const Capsule = styled.div`
+  height: 56px;
+  border-radius: 999px;
+  border: 0.05px solid ${({ theme }) => `${theme.colors.border}66`};
+  background: ${({ theme }) => `${theme.colors.background}d9`};
+  backdrop-filter: blur(8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.05rem;
+  padding: 0.36rem;
+`;
+
+const BrandGroup = styled.button`
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.46rem 0.84rem;
+  color: ${({ theme }) => theme.colors.text};
+
+  span:first-child {
+    font-family: "Sora", sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  span:last-child {
+    font-size: 0.72rem;
+    color: ${({ theme }) => theme.colors.textMuted};
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 `;
 
 const NavLink = styled.button<{ $active?: boolean }>`
-  font-size: 0.82rem;
+  font-size: 0.95rem;
   color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.textSecondary)};
-  padding: 0.4rem 0.55rem;
+  border-radius: 999px;
+  padding: 0.45rem 0.84rem;
+  line-height: 1;
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};
   }
 `;
 
+const ContactButton = styled.a`
+  margin-left: 0.22rem;
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text};
+  background: ${({ theme }) => `${theme.colors.backgroundAlt}40`};
+  line-height: 1;
+
+`;
+
+const MobileBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 12px;
+  background: ${({ theme }) => `${theme.colors.background}ee`};
+  backdrop-filter: blur(8px);
+  padding: 0 0.7rem;
+
+  @media (min-width: 940px) {
+    display: none;
+  }
+`;
+
+const MobileBrand = styled.button`
+  font-family: "Sora", sans-serif;
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.colors.text};
+  letter-spacing: 0.02em;
+`;
+
+const MobileActions = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+`;
+
 const IconButton = styled.button`
-  width: 2rem;
-  height: 2rem;
+  width: 1.9rem;
+  height: 1.9rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   color: ${({ theme }) => theme.colors.textSecondary};
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.text};
-    border-color: ${({ theme }) => theme.colors.textMuted};
-  }
-`;
-
-const MobileMenuButton = styled(IconButton)`
-  @media (min-width: 880px) {
-    display: none;
-  }
 `;
 
 const MobileMenu = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-  background: ${({ theme }) => theme.colors.background};
-  padding: 0.65rem 1rem 0.85rem;
+  margin-top: 0.45rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 12px;
+  background: ${({ theme }) => `${theme.colors.background}f5`};
+  padding: 0.7rem;
   display: grid;
-  gap: 0.25rem;
+  gap: 0.24rem;
 
-  @media (min-width: 880px) {
+  @media (min-width: 940px) {
     display: none;
   }
 `;
@@ -101,22 +141,31 @@ const MobileNavLink = styled.button<{ $active?: boolean }>`
   text-align: left;
   font-size: 0.9rem;
   color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.textSecondary)};
-  padding: 0.4rem 0;
+  padding: 0.4rem 0.2rem;
 `;
 
 const Header: React.FC<HeaderProps> = ({
   currentView,
   onNavigate,
-  darkMode,
-  toggleTheme,
 }) => {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [istTime, setIstTime] = useState("");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const updateIST = () => {
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZone: "Asia/Kolkata",
+      });
+      setIstTime(`${formatter.format(now)} IST`);
+    };
+
+    updateIST();
+    const interval = setInterval(updateIST, 60_000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleScrollToSection = (sectionId: string) => {
@@ -139,38 +188,40 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <HeaderContainer $scrolled={scrolled}>
-      <HeaderContent>
-        <Brand onClick={() => handleNavClick("home")}>SOUNAK GUPTA</Brand>
+    <HeaderContainer>
+      <DesktopWrap>
+        <Capsule>
+          <BrandGroup onClick={() => handleNavClick("home")}>
+            <span>SK</span>
+            <span>{istTime}</span>
+          </BrandGroup>
 
-        <NavGroup>
-          <DesktopNav>
-            <NavLink $active={currentView === "home"} onClick={() => onNavigate("home")}>Home</NavLink>
-            <NavLink onClick={() => handleScrollToSection("experience")}>Experience</NavLink>
-            <NavLink onClick={() => handleScrollToSection("showcase")}>Showcase</NavLink>
-            <NavLink onClick={() => handleScrollToSection("tools")}>Tools</NavLink>
-            <NavLink onClick={() => handleScrollToSection("activity")}>Activity</NavLink>
-            <NavLink $active={currentView.startsWith("blog")} onClick={() => onNavigate("blogs")}>Blogs</NavLink>
-          </DesktopNav>
+          <NavLink onClick={() => handleScrollToSection("experience")}>About</NavLink>
+          <NavLink onClick={() => handleScrollToSection("showcase")}>Work</NavLink>
+          <NavLink onClick={() => handleScrollToSection("tools")}>Tools I Use</NavLink>
+          <NavLink $active={currentView.startsWith("blog")} onClick={() => onNavigate("blogs")}>Blogs</NavLink>
 
-          <IconButton onClick={toggleTheme} aria-label="Toggle theme">
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+          <ContactButton href="mailto:sounakume@gmail.com">Get in Touch</ContactButton>
+        </Capsule>
+      </DesktopWrap>
+
+      <MobileBar>
+        <MobileBrand onClick={() => handleNavClick("home")}>OG</MobileBrand>
+        <MobileActions>
+          <IconButton onClick={() => setMobileMenuOpen((v) => !v)} aria-label="Menu">
+            {mobileMenuOpen ? <X size={14} /> : <Menu size={14} />}
           </IconButton>
-
-          <MobileMenuButton onClick={() => setMobileMenuOpen((v) => !v)} aria-label="Menu">
-            {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
-          </MobileMenuButton>
-        </NavGroup>
-      </HeaderContent>
+        </MobileActions>
+      </MobileBar>
 
       {mobileMenuOpen && (
         <MobileMenu>
-          <MobileNavLink $active={currentView === "home"} onClick={() => handleNavClick("home")}>Home</MobileNavLink>
-          <MobileNavLink onClick={() => handleScrollToSection("experience")}>Experience</MobileNavLink>
-          <MobileNavLink onClick={() => handleScrollToSection("showcase")}>Showcase</MobileNavLink>
-          <MobileNavLink onClick={() => handleScrollToSection("tools")}>Tools</MobileNavLink>
+          <MobileNavLink onClick={() => handleScrollToSection("experience")}>About</MobileNavLink>
+          <MobileNavLink onClick={() => handleScrollToSection("showcase")}>Work</MobileNavLink>
+          <MobileNavLink onClick={() => handleScrollToSection("tools")}>Tools I Use</MobileNavLink>
           <MobileNavLink onClick={() => handleScrollToSection("activity")}>Activity</MobileNavLink>
           <MobileNavLink $active={currentView.startsWith("blog")} onClick={() => handleNavClick("blogs")}>Blogs</MobileNavLink>
+          <MobileNavLink as="a" href="mailto:sounakume@gmail.com">Get in Touch</MobileNavLink>
         </MobileMenu>
       )}
     </HeaderContainer>

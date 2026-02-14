@@ -15,8 +15,8 @@ interface SEOProps {
 
 const DEFAULT_TITLE = 'Sounak Gupta | Senior Software Engineer';
 const DEFAULT_DESCRIPTION = 'Sounak Gupta is a Senior Software Engineer specializing in distributed systems, backend engineering, and customer-facing products.';
-const DEFAULT_IMAGE = 'https://github.com/sounak07.png';
-const SITE_URL = 'https://sounak-97.vercel.app';
+const DEFAULT_IMAGE = 'https://sounak-dev.vercel.app/resources/IMG_1854.jpeg';
+const SITE_URL = 'https://sounak-dev.vercel.app';
 
 function updateMetaTag(property: string, content: string, isProperty = true) {
   const attribute = isProperty ? 'property' : 'name';

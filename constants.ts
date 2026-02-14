@@ -9,8 +9,8 @@ import {
 export const PROFILE = {
   name: "Sounak",
   title: "Senior Software Engineer",
-  bio: "Hi I’m Sounak, I have a passion for distributed systems, love to work at customer facing products; building teams, taking an orgs engineering culture and unleveling them",
-  avatar: "https://github.com/sounak07.png",
+  bio: "building distributed systems and customer-facing products; great teams; taking an org's engineering culture and unleveling them",
+  avatar: "/resources/IMG_1854.jpeg",
   location: "Bengalurur, India",
   email: "sounakume@gmail.com",
   resumeUrl:

@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { EXPERIENCES } from "../constants";
 
 const Section = styled.section`
-  padding: 1rem 1rem 4rem;
+  padding: 3rem 1rem 4rem;
 
   @media (min-width: 768px) {
-    padding: 1rem 1.5rem 5.5rem;
+    padding: 3.8rem 1.5rem 5.5rem;
   }
 `;
 
@@ -149,7 +149,7 @@ const Experience: React.FC = () => {
   return (
     <Section id="experience">
       <Container>
-        <SectionTitle>Experience</SectionTitle>
+        <SectionTitle>Timeline</SectionTitle>
         <SectionSubtitle>
           Highlights from teams and products I have helped build across full-time and internship roles.
         </SectionSubtitle>
