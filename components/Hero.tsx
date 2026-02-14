@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { PROFILE, SOCIAL_LINKS } from "../constants";
 import { NavigateCallback } from "@/types";
 import {
@@ -8,10 +8,10 @@ import {
   Twitter,
   Instagram,
   Layers,
-  FileText,
   Coffee,
   Mail,
-  BookOpen,
+  MapPin,
+  ArrowRight,
 } from "lucide-react";
 
 const IconMap: Record<string, React.ComponentType<any>> = {
@@ -24,148 +24,129 @@ const IconMap: Record<string, React.ComponentType<any>> = {
   mail: Mail,
 };
 
-// Animations
-const slideUp = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
-
-const zoomIn = keyframes`
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-`;
-
 const Section = styled.section`
-  padding-top: 5rem;
-  padding-bottom: 4rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  max-width: 800px;
+  padding: 6.6rem 1rem 3rem;
+
+  @media (min-width: 768px) {
+    padding: 7.2rem 1.5rem 3.8rem;
+  }
+`;
+
+const Container = styled.div`
+  max-width: 1120px;
   margin: 0 auto;
-  min-height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4rem;
-
-  @media (min-width: 768px) {
-    padding-top: 10rem;
-    padding-bottom: 6rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    min-height: 80vh;
-    gap: 6rem;
-  }
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 2rem;
-  align-items: center;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-`;
-
-const HeaderContent = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
-  width: 100%;
+
+  @media (min-width: 980px) {
+    grid-template-columns: 1.25fr 0.75fr;
+  }
+`;
+
+const Content = styled.div`
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 12px;
+  padding: 1.1rem;
+  background: ${({ theme }) => theme.colors.cardBg};
+`;
+
+const Eyebrow = styled.p`
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-bottom: 0.6rem;
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  line-height: 1.12;
+  margin-bottom: 0.8rem;
   color: ${({ theme }) => theme.colors.text};
-  letter-spacing: -0.025em;
-
-  @media (min-width: 768px) {
-    font-size: 4rem;
-  }
 `;
 
-const SocialLinksContainer = styled.div`
+const Description = styled.p`
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.7;
+  max-width: 64ch;
+`;
+
+const MetaRow = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 0.86rem;
+`;
+
+const Actions = styled.div`
+  margin-top: 1.1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.6rem;
+`;
+
+const PrimaryAction = styled.button`
+  display: inline-flex;
   align-items: center;
+  gap: 0.35rem;
+  border: 1px solid ${({ theme }) => theme.colors.text};
+  border-radius: 8px;
+  padding: 0.52rem 0.72rem;
+  color: ${({ theme }) => theme.colors.primaryInverse};
+  background: ${({ theme }) => theme.colors.text};
+  font-size: 0.84rem;
+`;
+
+const SecondaryAction = styled.a`
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 8px;
+  padding: 0.52rem 0.72rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: 0.84rem;
+`;
+
+const SideCard = styled.div`
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 12px;
+  padding: 1.1rem;
+  background: ${({ theme }) => theme.colors.cardBg};
+  display: grid;
+  gap: 0.8rem;
+`;
+
+const Avatar = styled.img`
+  width: 88px;
+  height: 88px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
+const Name = styled.h2`
+  font-size: 1rem;
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
 `;
 
 const SocialLink = styled.a`
-  padding: 0.5rem;
-  border-radius: 9999px;
-  background-color: transparent;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  transition: all 0.2s;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid ${({ theme }) => theme.colors.border};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.text};
-    color: ${({ theme }) => theme.colors.background};
-    border-color: ${({ theme }) => theme.colors.text};
-    transform: translateY(-2px);
-  }
-`;
-
-const ImageContainer = styled.div`
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 4px solid ${({ theme }) => theme.colors.border};
-  animation: ${zoomIn} 1s ease-out backwards;
-  flex-shrink: 0;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const AboutSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  animation: ${slideUp} 1s ease-out 0.5s backwards;
-`;
-
-const AboutHeading = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.text};
-
-  @media (min-width: 768px) {
-    font-size: 2rem;
-  }
-`;
-
-const BioParagraph = styled.p`
-  font-size: 1rem;
+  border-radius: 8px;
   color: ${({ theme }) => theme.colors.textSecondary};
-  line-height: 1.625;
-
-  @media (min-width: 768px) {
-    font-size: 1.125rem;
-  }
-`;
-
-const Link = styled.a`
-  color: ${({ theme }) => theme.colors.text};
-  text-decoration: underline;
-  text-decoration-color: ${({ theme }) => theme.colors.textSecondary};
-  text-underline-offset: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-    text-decoration-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -176,10 +157,28 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
     <Section>
-      <HeaderContainer>
-        <HeaderContent>
-          <Title>hi, {PROFILE.name.toLowerCase()} here</Title>
-          <SocialLinksContainer>
+      <Container>
+        <Content>
+          <Eyebrow>{PROFILE.title}</Eyebrow>
+          <Title>Engineering reliable backend systems at scale.</Title>
+          <Description>{PROFILE.bio}</Description>
+          <MetaRow>
+            <MapPin size={14} /> {PROFILE.location}
+          </MetaRow>
+
+          <Actions>
+            <PrimaryAction onClick={() => onNavigate("blogs")}>Read Blogs <ArrowRight size={14} /></PrimaryAction>
+            <SecondaryAction href={PROFILE.resumeUrl} target="_blank" rel="noopener noreferrer">
+              Resume
+            </SecondaryAction>
+          </Actions>
+        </Content>
+
+        <SideCard>
+          <Avatar src={PROFILE.avatar} alt={PROFILE.name} />
+          <Name>{PROFILE.name}</Name>
+          <Description>Open to impactful backend work, architecture reviews, and mentoring.</Description>
+          <SocialLinks>
             {SOCIAL_LINKS.map((link) => {
               const Icon = IconMap[link.icon] || Layers;
               return (
@@ -190,39 +189,13 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                   rel="noopener noreferrer"
                   aria-label={link.name}
                 >
-                  <Icon size={20} />
+                  <Icon size={15} />
                 </SocialLink>
               );
             })}
-          </SocialLinksContainer>
-        </HeaderContent>
-
-        <ImageContainer>
-          <img src={PROFILE.avatar} alt={PROFILE.name} />
-        </ImageContainer>
-      </HeaderContainer>
-
-      <AboutSection>
-        <AboutHeading>about</AboutHeading>
-
-        <BioParagraph>
-          tldr; {PROFILE.bio.split(".")[0].toLowerCase()}.
-        </BioParagraph>
-
-        <BioParagraph>
-          i have deep expertise in data structures, algorithms, OOP, and design
-          patterns.
-        </BioParagraph>
-
-        <BioParagraph>
-          i really love building teams, taking an orgs engineering culture and
-          unleveling them.
-        </BioParagraph>
-
-        <BioParagraph>
-          read my blogs, <Link onClick={() => onNavigate("blogs")}>here</Link>.
-        </BioParagraph>
-      </AboutSection>
+          </SocialLinks>
+        </SideCard>
+      </Container>
     </Section>
   );
 };

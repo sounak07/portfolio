@@ -1,9 +1,15 @@
-import { SocialLink, ExperienceItem, BlogPost } from "./types";
+import {
+  SocialLink,
+  ExperienceItem,
+  BlogPost,
+  ShowcaseItem,
+  ToolCategory,
+} from "./types";
 
 export const PROFILE = {
   name: "Sounak",
   title: "Senior Software Engineer",
-  bio: "Hi I’m Sounak, I have a passion for distributed systems, love to work at customer facing products.",
+  bio: "Hi I’m Sounak, I have a passion for distributed systems, love to work at customer facing products; building teams, taking an orgs engineering culture and unleveling them",
   avatar: "https://github.com/sounak07.png",
   location: "Bengalurur, India",
   email: "sounakume@gmail.com",
@@ -42,6 +48,11 @@ export const EXPERIENCES: Array<ExperienceItem> = [
     company: "Raft AI",
     logo: "https://cdn.prod.website-files.com/634dc126d92a901d43966284/634dc126d92a900da59662b6_Favicon.png",
     period: "Jul 2022 - Present",
+    highlights: [
+      "Built and scaled customer-facing backend systems powering high-volume workflows.",
+      "Led architecture and execution for distributed services with strong reliability SLOs.",
+      "Partnered with product and cross-functional teams to ship roadmap-critical features faster.",
+    ],
   },
   {
     id: "2",
@@ -50,6 +61,11 @@ export const EXPERIENCES: Array<ExperienceItem> = [
     company: "Hyperverge Inc.",
     logo: "https://cdn.hyperverge.co/wp-content/uploads/2025/08/favicon.png",
     period: "Jul 2020 – Jul 2022",
+    highlights: [
+      "Implemented performant identity and verification services used across enterprise clients.",
+      "Improved core APIs and async processing paths to reduce latency and failure rates.",
+      "Contributed to production observability and incident response playbooks for backend teams.",
+    ],
   },
   {
     id: "3",
@@ -58,6 +74,11 @@ export const EXPERIENCES: Array<ExperienceItem> = [
     company: "Upscale AI",
     logo: "https://ui-avatars.com/api/?name=Upscale+AI&background=random&color=fff",
     period: "May 2020 – Jul 2020",
+    highlights: [
+      "Developed backend modules and tooling to support early product experiments.",
+      "Worked on clean API contracts and integration flows with internal services.",
+      "Delivered features in short cycles while learning production-grade engineering practices.",
+    ],
   },
   {
     id: "4",
@@ -66,6 +87,11 @@ export const EXPERIENCES: Array<ExperienceItem> = [
     company: "Nineleaps",
     logo: "https://www.nineleaps.com/wp-content/themes/nineleaps/assets/images/favicon/apple-icon-72x72.png",
     period: "May 2019 – Jul 2019",
+    highlights: [
+      "Built proof-of-concept backend components for client-facing projects.",
+      "Collaborated with senior engineers on code quality and review-driven development.",
+      "Gained hands-on experience with agile delivery and engineering teamwork.",
+    ],
   },
 ];
 
@@ -101,6 +127,60 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "Jan 04, 2026",
     excerpt: "Blog explains all the design patterns in OOP with examples like Singleton, Factory, Observer etc.",
     tags: ["oop", "design-patterns"],
+  },
+];
+
+export const SHOWCASE_ITEMS: ShowcaseItem[] = [
+  {
+    id: "1",
+    title: "Backend Engineering Notes",
+    description: "Open-source notes and practical references on backend engineering.",
+    url: "https://github.com/sounak07/backend-engineering",
+    kind: "project",
+  },
+  {
+    id: "2",
+    title: "Kafka for Dummies",
+    description: "A deep dive post on Kafka fundamentals and architecture.",
+    url: "/blog/OG Kafka",
+    kind: "article",
+  },
+  {
+    id: "3",
+    title: "System Design Threads",
+    description: "Short form thoughts on distributed systems and engineering decisions.",
+    url: "https://x.com/sounak_08",
+    kind: "x-post",
+  },
+  {
+    id: "4",
+    title: "Mentoring / Knowledge Sharing",
+    description: "1:1 sessions, architecture reviews, and growth-focused engineering discussions.",
+    url: "https://topmate.io/sounak_fyi",
+    kind: "video",
+  },
+];
+
+export const TOOLS_CATEGORIES: ToolCategory[] = [
+  {
+    id: "core-stack",
+    title: "Core Stack",
+    items: ["Java", "TypeScript", "Node.js", "Spring Boot", "Kafka", "Redis"],
+  },
+  {
+    id: "databases",
+    title: "Data & Databases",
+    items: ["PostgreSQL", "MongoDB", "DynamoDB", "Elasticsearch", "ClickHouse"],
+  },
+  {
+    id: "infra",
+    title: "Infrastructure",
+    items: ["Docker", "Kubernetes", "AWS", "Terraform", "GitHub Actions", "Nginx"],
+  },
+  {
+    id: "daily-tools",
+    title: "Daily Tools",
+    items: ["IntelliJ", "VS Code", "Postman", "Grafana", "Datadog", "Sentry"],
   },
 ];
 

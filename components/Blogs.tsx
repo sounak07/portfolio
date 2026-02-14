@@ -6,71 +6,63 @@ import { ArrowLeft, X } from "lucide-react";
 
 interface BlogsProps {}
 
-// Available tags
-const AVAILABLE_TAGS = ['oop', 'databases', 'distributed-systems', 'event-driven', 'design-patterns'];
+const AVAILABLE_TAGS = ["oop", "databases", "distributed-systems", "event-driven", "design-patterns"];
 
 const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const Container = styled.div`
+  padding: 7.5rem 1rem 5rem;
+  max-width: 980px;
+  margin: 0 auto;
+  animation: ${fadeIn} 0.45s ease-out;
+
+  @media (min-width: 768px) {
+    padding: 8.2rem 1.5rem 5.5rem;
+  }
 `;
 
 const BackButton = styled.button`
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.84rem;
+  font-weight: 700;
   color: ${({ theme }) => theme.colors.textSecondary};
-  margin-bottom: 2rem;
-  transition: color 0.2s;
+  margin-bottom: 1.4rem;
+  transition: 0.2s;
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};
   }
 
   &:hover svg {
-    transform: translateX(-4px);
+    transform: translateX(-3px);
   }
 
   svg {
-    margin-right: 0.5rem;
+    margin-right: 0.45rem;
     transition: transform 0.2s;
   }
 `;
 
-const Container = styled.div`
-  padding-top: 8rem;
-  padding-bottom: 6rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  max-width: 56rem;
-  margin: 0 auto;
-  animation: ${fadeIn} 0.5s ease-out;
-
-  @media (min-width: 640px) {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-`;
-
-/* List View Styles */
 const ListHeader = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.4rem;
 `;
 
 const PageTitle = styled.h1`
-  font-size: 1.875rem;
-  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Subtitle = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
-/* Tag Filter Styles */
 const TagFilterSection = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.3rem;
 `;
 
 const TagFilterContainer = styled.div`
@@ -79,53 +71,49 @@ const TagFilterContainer = styled.div`
   align-items: center;
   gap: 0.5rem;
   overflow-x: auto;
-  padding-bottom: 0.5rem;
-  
-  /* Hide scrollbar but keep functionality */
+  padding-bottom: 0.2rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
 `;
 
 const TagFilterLabel = styled.span`
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 700;
   color: ${({ theme }) => theme.colors.textMuted};
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   flex-shrink: 0;
 `;
 
 const FilterTag = styled.button<{ $active: boolean }>`
-  font-size: 0.8125rem;
-  font-weight: 500;
-  padding: 0.375rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
   border-radius: 9999px;
-  border: 1px solid ${({ theme, $active }) => $active ? theme.colors.text : theme.colors.border};
-  background-color: ${({ theme, $active }) => $active ? theme.colors.text : 'transparent'};
-  color: ${({ theme, $active }) => $active ? theme.colors.background : theme.colors.textSecondary};
-  cursor: pointer;
-  transition: all 0.15s;
+  border: 1px solid ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.border)};
+  background-color: ${({ theme, $active }) => ($active ? theme.colors.primary : `${theme.colors.cardBg}a0`)};
+  color: ${({ theme, $active }) => ($active ? theme.colors.primaryInverse : theme.colors.textSecondary)};
+  transition: all 0.16s;
   white-space: nowrap;
   flex-shrink: 0;
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.text};
-    color: ${({ theme, $active }) => $active ? theme.colors.background : theme.colors.text};
+    color: ${({ theme, $active }) => ($active ? theme.colors.primaryInverse : theme.colors.text)};
   }
 `;
 
 const ClearFilter = styled.button`
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.75rem;
+  gap: 0.2rem;
+  font-size: 0.72rem;
   color: ${({ theme }) => theme.colors.textMuted};
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  transition: color 0.15s;
+  padding: 0.24rem 0.45rem;
   flex-shrink: 0;
 
   &:hover {
@@ -134,21 +122,26 @@ const ClearFilter = styled.button`
 `;
 
 const PostList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: grid;
+  gap: 0.95rem;
 `;
 
 const PostItem = styled(Link)`
   display: block;
-  text-decoration: none;
-  cursor: pointer;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.backgroundAlt};
-  padding-bottom: 2rem;
-  transition: border-color 0.2s;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 18px;
+  padding: 1rem;
+  background: ${({ theme }) => `${theme.colors.cardBg}f3`};
+  transition: 0.2s ease;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.border};
+    border-color: ${({ theme }) => theme.colors.accent};
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.sm};
+  }
+
+  @media (min-width: 768px) {
+    padding: 1.3rem;
   }
 `;
 
@@ -156,26 +149,20 @@ const PostTitleRow = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
+  gap: 0.7rem;
 `;
 
 const PostTitle = styled.h2`
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.15rem;
   color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s;
-
-  ${PostItem}:hover & {
-    color: ${({ theme }) => theme.colors.accent};
-  }
 `;
 
 const PostDate = styled.span`
-  font-size: 0.875rem;
-  font-family: monospace;
+  font-size: 0.79rem;
+  font-family: "Space Grotesk", monospace;
   color: ${({ theme }) => theme.colors.textMuted};
   flex-shrink: 0;
-  margin-left: 1rem;
   display: none;
 
   @media (min-width: 640px) {
@@ -186,81 +173,52 @@ const PostDate = styled.span`
 const Excerpt = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: 0.75rem;
-  line-height: 1.625;
+  line-height: 1.65;
 `;
 
 const PostFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.8rem;
 `;
 
 const TagsContainer = styled.div`
   display: flex;
-  gap: 0.625rem;
-  flex-wrap: nowrap;
+  gap: 0.45rem;
+  flex-wrap: wrap;
 `;
 
 const ListTag = styled.span`
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: ${({ theme }) => theme.colors.textMuted};
-  font-family: monospace;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 999px;
+  padding: 0.21rem 0.5rem;
   cursor: pointer;
-  transition: color 0.15s;
-  white-space: nowrap;
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};
+    border-color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
 const ReadMore = styled.span`
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: ${({ theme }) => theme.colors.accent};
-  opacity: 0;
-  transform: translateX(-0.5rem);
-  transition: all 0.3s;
-  display: none;
-
-  ${PostItem}:hover & {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  @media (min-width: 640px) {
-    display: block;
-  }
-`;
-
-const MobileReadMore = styled.span`
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.textMuted};
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-
-  ${PostItem}:hover & {
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  @media (min-width: 640px) {
-    display: none;
-  }
 `;
 
 const NoResults = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
   text-align: center;
-  padding: 2rem 0;
+  padding: 1.7rem 0;
 `;
 
 const Blogs: React.FC<BlogsProps> = () => {
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  // Filter posts by selected tag
   const filteredPosts = useMemo(() => {
     if (!selectedTag) return BLOG_POSTS;
     return BLOG_POSTS.filter((post) => post.tags.includes(selectedTag));
@@ -277,29 +235,23 @@ const Blogs: React.FC<BlogsProps> = () => {
         <ArrowLeft size={16} />
         Back to Home
       </BackButton>
+
       <ListHeader>
         <PageTitle>Writing</PageTitle>
-        <Subtitle>
-          Thoughts on software engineering, architecture, and design.
-        </Subtitle>
+        <Subtitle>Thoughts on software engineering, architecture, and design.</Subtitle>
       </ListHeader>
 
       <TagFilterSection>
         <TagFilterContainer>
-          <TagFilterLabel>Filter:</TagFilterLabel>
+          <TagFilterLabel>Filter</TagFilterLabel>
           {AVAILABLE_TAGS.map((tag) => (
-            <FilterTag
-              key={tag}
-              $active={selectedTag === tag}
-              onClick={() => handleTagClick(tag)}
-            >
+            <FilterTag key={tag} $active={selectedTag === tag} onClick={() => handleTagClick(tag)}>
               {tag}
             </FilterTag>
           ))}
           {selectedTag && (
             <ClearFilter onClick={() => setSelectedTag(null)}>
-              <X size={12} />
-              Clear
+              <X size={12} /> Clear
             </ClearFilter>
           )}
         </TagFilterContainer>
@@ -319,19 +271,12 @@ const Blogs: React.FC<BlogsProps> = () => {
               <PostFooter>
                 <TagsContainer>
                   {post.tags.map((tag) => (
-                    <ListTag
-                      key={tag}
-                      onClick={(e) => handleTagClick(tag, e)}
-                    >
+                    <ListTag key={tag} onClick={(e) => handleTagClick(tag, e)}>
                       #{tag}
                     </ListTag>
                   ))}
                 </TagsContainer>
-                <MobileReadMore>
-                  Read{" "}
-                  <ArrowLeft style={{ transform: "rotate(180deg)" }} size={14} />
-                </MobileReadMore>
-                <ReadMore>Read Article &rarr;</ReadMore>
+                <ReadMore>Read Article →</ReadMore>
               </PostFooter>
             </PostItem>
           ))

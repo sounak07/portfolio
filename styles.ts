@@ -1,58 +1,44 @@
 import { createGlobalStyle } from "styled-components";
 
-const neutral = {
-  50: "#f9fafb",
-  100: "#f3f4f6",
-  200: "#e5e7eb",
-  300: "#d1d5db",
-  400: "#9ca3af",
-  500: "#6b7280",
-  600: "#4b5563",
-  700: "#374151",
-  800: "#1f2937",
-  900: "#111827",
-  950: "#030712",
-};
-
 export const lightTheme = {
   colors: {
-    background: neutral[50],
-    backgroundAlt: neutral[100],
-    text: neutral[900],
-    textSecondary: neutral[600],
-    textMuted: neutral[400],
-    border: neutral[200],
-    primary: neutral[900],
-    primaryInverse: neutral[50],
-    hover: neutral[200],
+    background: "#f7f7f6",
+    backgroundAlt: "#f0f0ef",
+    text: "#151515",
+    textSecondary: "#3f3f3f",
+    textMuted: "#6f6f6f",
+    border: "#dfdfdd",
+    primary: "#161616",
+    primaryInverse: "#f8f8f8",
+    hover: "#ececeb",
     cardBg: "#ffffff",
-    accent: "#2563eb",
+    accent: "#2a2a2a",
   },
   shadows: {
-    sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-    md: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
-    lg: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+    sm: "0 2px 8px rgb(0 0 0 / 0.05)",
+    md: "0 8px 22px rgb(0 0 0 / 0.08)",
+    lg: "0 14px 40px rgb(0 0 0 / 0.12)",
   },
 };
 
 export const darkTheme = {
   colors: {
-    background: neutral[950],
-    backgroundAlt: neutral[900],
-    text: neutral[50],
-    textSecondary: neutral[400],
-    textMuted: neutral[600],
-    border: neutral[800],
-    primary: neutral[50],
-    primaryInverse: neutral[900],
-    hover: neutral[800],
-    cardBg: neutral[900],
-    accent: "#60a5fa",
+    background: "#131313",
+    backgroundAlt: "#191919",
+    text: "#ececec",
+    textSecondary: "#b6b6b6",
+    textMuted: "#868686",
+    border: "#2a2a2a",
+    primary: "#ebebeb",
+    primaryInverse: "#141414",
+    hover: "#222222",
+    cardBg: "#161616",
+    accent: "#d2d2d2",
   },
   shadows: {
-    sm: "0 1px 2px 0 rgb(0 0 0 / 0.5)",
-    md: "0 4px 6px -1px rgb(0 0 0 / 0.5)",
-    lg: "0 10px 15px -3px rgb(0 0 0 / 0.5)",
+    sm: "0 2px 10px rgb(0 0 0 / 0.26)",
+    md: "0 8px 24px rgb(0 0 0 / 0.34)",
+    lg: "0 14px 44px rgb(0 0 0 / 0.42)",
   },
 };
 
@@ -70,12 +56,13 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Inter', sans-serif;
-    background-color: ${({ theme }) => theme.colors.background};
+    font-family: 'Manrope', 'Space Grotesk', sans-serif;
+    background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
     transition: background-color 0.3s ease, color 0.3s ease;
-    line-height: 1.5;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   a {
@@ -90,16 +77,28 @@ export const GlobalStyles = createGlobalStyle`
     font-family: inherit;
   }
 
+  h1, h2, h3, h4, h5 {
+    font-family: 'Sora', 'Manrope', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.primaryInverse};
+  }
+
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.border};
-    border-radius: 4px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: ${({ theme }) => theme.colors.textSecondary};

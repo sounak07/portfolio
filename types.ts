@@ -18,6 +18,7 @@ export interface ExperienceItem {
   period: string;
   logo?: string;
   type?: string;
+  highlights?: string[];
 }
 
 export interface ProjectItem {
@@ -38,6 +39,20 @@ export interface BlogPost {
   excerpt: string;
   tags: string[];
   content?: string; // Loaded asynchronously
+}
+
+export interface ShowcaseItem {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  kind: "project" | "video" | "x-post" | "article";
+}
+
+export interface ToolCategory {
+  id: string;
+  title: string;
+  items: string[];
 }
 
 export type ViewState = "home" | "blogs" | "blog-detail";

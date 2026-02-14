@@ -8,6 +8,7 @@ import {
   Circle,
   ExternalLink,
   Loader2,
+  Sparkles,
 } from "lucide-react";
 
 interface Repo {
@@ -22,93 +23,91 @@ interface Repo {
 }
 
 const Section = styled.section`
-  padding: 4rem 0;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-  background-color: ${({ theme }) =>
-    theme.colors.backgroundAlt}80; /* 50% opacity */
+  padding: 1rem 1rem 5rem;
+
+  @media (min-width: 768px) {
+    padding: 1rem 1.5rem 6rem;
+  }
 `;
 
 const Container = styled.div`
-  max-width: 1024px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 1rem;
-
-  @media (min-width: 640px) {
-    padding: 0 1.5rem;
-  }
 `;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 3rem;
+  gap: 0.7rem;
+  margin-bottom: 0.6rem;
 `;
 
 const IconWrapper = styled.div`
-  padding: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.backgroundAlt};
-  border-radius: 0.5rem;
-  color: ${({ theme }) => theme.colors.text};
-  display: flex;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.textSecondary};
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 `;
 
 const Title = styled.h3`
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: clamp(1.55rem, 3.4vw, 2.35rem);
   color: ${({ theme }) => theme.colors.text};
 `;
 
 const SubHeading = styled.h4`
-  font-size: 0.875rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-bottom: 0.9rem;
+`;
+
+const SectionSubtitle = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
-  letter-spacing: 0.05em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 `;
 
 const GraphContainer = styled.div`
-  margin-bottom: 3rem;
+  margin-bottom: 2.8rem;
   overflow-x: auto;
-  padding-bottom: 1rem;
+  padding-bottom: 0.2rem;
 `;
 
 const GraphCard = styled.div`
-  min-width: 800px;
-  padding: 1rem;
-  background-color: ${({ theme }) => theme.colors.cardBg};
+  min-width: 640px;
+  max-width: 860px;
+  padding: 0.75rem;
+  background: ${({ theme }) => theme.colors.cardBg};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 0.75rem;
+  border-radius: 12px;
 `;
 
 const GraphImage = styled.img`
   width: 100%;
   height: auto;
-  transition: all 0.3s;
-
-  /* Dark Mode Inversion Logic */
-  .dark & {
-    filter: invert(1) hue-rotate(180deg) brightness(1.1);
-  }
-
-  /* Manual check since styled-components theme prop is better */
-  filter: ${({ theme }) =>
-    theme.colors.background === "#151B23"
-      ? "invert(1) hue-rotate(180deg) brightness(1.1)"
-      : "none"};
+  max-height: 120px;
+  object-fit: contain;
+  filter: ${({ theme }) => (theme.colors.background === "#131313" ? "invert(1) hue-rotate(180deg) brightness(1.1)" : "none")};
 `;
 
 const RepoGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 1rem;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: 1024px) {
+
+  @media (min-width: 1080px) {
     grid-template-columns: repeat(3, 1fr);
   }
 `;
@@ -116,17 +115,16 @@ const RepoGrid = styled.div`
 const RepoCard = styled.a`
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 1.25rem;
-  background-color: transparent;
-  border-radius: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.border}40;
-  transition: all 0.2s ease;
+  min-height: 195px;
+  padding: 1.05rem;
+  border-radius: 12px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.cardBg};
+  transition: 0.2s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.backgroundAlt}40;
-    border-color: ${({ theme }) => theme.colors.textSecondary};
     transform: translateY(-2px);
+    border-color: ${({ theme }) => theme.colors.textMuted};
   }
 `;
 
@@ -134,32 +132,28 @@ const RepoHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
+  gap: 0.6rem;
+  margin-bottom: 0.55rem;
 `;
 
 const RepoName = styled.h4`
-  font-weight: 700;
+  font-size: 1rem;
   color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  ${RepoCard}:hover & {
-    color: ${({ theme }) => theme.colors.accent};
-  }
 `;
 
 const RepoDesc = styled.p`
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.textSecondary};
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.55;
   flex-grow: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  opacity: 0.8;
 `;
 
 const RepoFooter = styled.div`
@@ -168,33 +162,32 @@ const RepoFooter = styled.div`
   justify-content: space-between;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.textSecondary};
-  padding-top: 1rem;
-  margin-top: auto;
-  opacity: 0.8;
+  padding-top: 0.8rem;
+  border-top: 1px dashed ${({ theme }) => theme.colors.border};
 `;
 
 const StatsGroup = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.7rem;
 `;
 
 const StatItem = styled.div`
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.2rem;
 `;
 
 const LoadingWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 3rem 0;
+  padding: 2.5rem 0;
 `;
 
 const ErrorMsg = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.colors.textSecondary};
-  padding: 2rem 0;
+  padding: 1.8rem 0;
 `;
 
 const GithubActivity: React.FC = () => {
@@ -239,13 +232,18 @@ const GithubActivity: React.FC = () => {
       <Container>
         <Header>
           <IconWrapper>
-            <GitCommit size={24} />
+            <GitCommit size={16} />
           </IconWrapper>
           <Title>Open Source Activity</Title>
         </Header>
+        <SectionSubtitle>
+          Contribution consistency and repositories I have actively worked on recently.
+        </SectionSubtitle>
 
-        <div style={{ marginBottom: "3rem" }}>
-          <SubHeading>Contribution History</SubHeading>
+        <div style={{ marginBottom: "2rem" }}>
+          <SubHeading>
+            <Sparkles size={14} /> Contribution Heatmap
+          </SubHeading>
           <GraphContainer>
             <GraphCard>
               <GraphImage
@@ -256,7 +254,9 @@ const GithubActivity: React.FC = () => {
           </GraphContainer>
         </div>
 
-        <SubHeading>Active Repos</SubHeading>
+        <SubHeading>
+          <Sparkles size={14} /> Active Repos
+        </SubHeading>
 
         {loading ? (
           <LoadingWrapper>
@@ -275,16 +275,10 @@ const GithubActivity: React.FC = () => {
               >
                 <RepoHeader>
                   <RepoName>{repo.name}</RepoName>
-                  <ExternalLink
-                    size={16}
-                    color="currentColor"
-                    style={{ flexShrink: 0 }}
-                  />
+                  <ExternalLink size={15} style={{ flexShrink: 0 }} />
                 </RepoHeader>
 
-                <RepoDesc>
-                  {repo.description || "No description available."}
-                </RepoDesc>
+                <RepoDesc>{repo.description || "No description available."}</RepoDesc>
 
                 <RepoFooter>
                   <StatsGroup>

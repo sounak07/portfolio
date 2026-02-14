@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import { Analytics } from "@vercel/analytics/react";
 import Hero from "./components/Hero";
 import Experience from "./components/Experience";
+import Showcase from "./components/Showcase";
+import Tools from "./components/Tools";
 import GithubActivity from "./components/Projects";
 import Blogs from "./components/Blogs";
 import BlogDetail from "./components/BlogDetail";
@@ -24,12 +26,20 @@ const Main = styled.main`
 `;
 
 const Footer = styled.footer`
-  padding: 2rem 0;
+  padding: 1rem 1rem 2rem;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: ${({ theme }) => theme.colors.textSecondary};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
   margin-top: auto;
+`;
+
+const FooterInner = styled.div`
+  max-width: 1120px;
+  margin: 0 auto;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 14px;
+  background: ${({ theme }) => `${theme.colors.cardBg}d9`};
+  padding: 0.75rem;
 `;
 
 const fadeIn = keyframes`
@@ -122,6 +132,8 @@ function App() {
               <AnimatedSection>
                 <Hero onNavigate={() => handleNavigate("blogs")} />
                 <Experience />
+                <Showcase />
+                <Tools />
                 <GithubActivity />
               </AnimatedSection>
             } />
@@ -140,7 +152,7 @@ function App() {
         </Main>
 
         <Footer>
-          <p>© {new Date().getFullYear()} | Made by Sounak with ❤️</p>
+          <FooterInner>© {new Date().getFullYear()} | Built by Sounak</FooterInner>
         </Footer>
         <Analytics />
       </AppContainer>
