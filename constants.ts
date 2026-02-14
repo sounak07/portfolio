@@ -10,7 +10,7 @@ export const PROFILE = {
   name: "Sounak",
   title: "Senior Software Engineer",
   bio: "building distributed systems and customer-facing products; great teams; taking an org's engineering culture and unleveling them",
-  avatar: "/resources/IMG_1854.jpeg",
+  avatar: "/static/images/IMG_1854.jpeg",
   location: "Bengalurur, India",
   email: "sounakume@gmail.com",
   resumeUrl:
