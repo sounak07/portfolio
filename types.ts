@@ -3,6 +3,7 @@ export interface SocialLink {
   url: string;
   icon:
     | "github"
+    | "youtube"
     | "linkedin"
     | "twitter"
     | "instagram"

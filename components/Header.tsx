@@ -206,7 +206,7 @@ const Header: React.FC<HeaderProps> = ({
       </DesktopWrap>
 
       <MobileBar>
-        <MobileBrand onClick={() => handleNavClick("home")}>OG</MobileBrand>
+        <MobileBrand onClick={() => handleNavClick("home")}>SK</MobileBrand>
         <MobileActions>
           <IconButton onClick={() => setMobileMenuOpen((v) => !v)} aria-label="Menu">
             {mobileMenuOpen ? <X size={14} /> : <Menu size={14} />}

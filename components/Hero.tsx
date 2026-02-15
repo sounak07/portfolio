@@ -1,10 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { PROFILE } from "../constants";
+import { PROFILE, SOCIAL_LINKS } from "../constants";
 import { NavigateCallback } from "@/types";
 import {
+  Github,
+  Youtube,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Coffee,
+  Layers,
   ArrowRight,
 } from "lucide-react";
+
+const IconMap: Record<string, React.ComponentType<any>> = {
+  github: Github,
+  youtube: Youtube,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  instagram: Instagram,
+  topmate: Coffee,
+};
 
 const Section = styled.section`
   position: relative;
@@ -112,6 +128,29 @@ const SecondaryAction = styled.a`
   font-weight: 600;
 `;
 
+const HeroSocialRow = styled.div`
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+`;
+
+const HeroSocial = styled.a`
+  width: 2.05rem;
+  height: 2.05rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 8px;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.text};
+    border-color: ${({ theme }) => theme.colors.textMuted};
+  }
+`;
+
 const Visual = styled.div`
   position: relative;
   min-height: 355px;
@@ -171,6 +210,10 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+  const requestedSocials = SOCIAL_LINKS.filter((link) =>
+    ["github", "youtube", "linkedin", "twitter", "instagram", "topmate"].includes(link.icon)
+  );
+
   return (
     <Section>
       <Aura />
@@ -190,6 +233,24 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               Resume
             </SecondaryAction>
           </Actions>
+
+          <HeroSocialRow>
+            {requestedSocials.map((link) => {
+              const Icon = IconMap[link.icon] || Layers;
+              return (
+                <HeroSocial
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.name}
+                  title={link.name}
+                >
+                  <Icon size={15} />
+                </HeroSocial>
+              );
+            })}
+          </HeroSocialRow>
         </div>
 
         <Visual>

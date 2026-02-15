@@ -46,6 +46,11 @@ const FloatingThemeButton = styled.button`
   &:hover {
     color: ${({ theme }) => theme.colors.text};
   }
+
+  @media (max-width: 939px) {
+    top: 4.2rem;
+    right: 1rem;
+  }
 `;
 
 const Footer = styled.footer`
